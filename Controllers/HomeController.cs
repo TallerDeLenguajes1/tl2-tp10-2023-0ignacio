@@ -4,6 +4,7 @@ using tl2_tp10_2023_0ignacio.Models;
 
 namespace tl2_tp10_2023_0ignacio.Controllers;
 
+//hola
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
