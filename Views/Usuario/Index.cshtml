@@ -1,24 +1,13 @@
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home page";
 }
-@model List<Usuario>
 
-<h2>Lista de usuarios</h2>
+<div class="text-center">
+    <h2>Opciones de Usuarios</h2>
 
-<table class="table table-dark">
-    <thead>
-        <tr>
-            <th hidden>ID</th>
-            <th>Nombre</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var usuario in Model)
-        {
-            <tr>
-                <td hidden>@usuario.Id</td>
-                <td>@usuario.NombreDeUsuario</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <ol>
+        <li><a asp-controller="Usuario" asp-action="GetAllUsuarios">Listar y gestrionar usuarios</a></li>
+        <li><a asp-controller="Usuario" asp-action="NewUsuario">Crear Usuario</a></li>
+    </ol>
+
+</div>

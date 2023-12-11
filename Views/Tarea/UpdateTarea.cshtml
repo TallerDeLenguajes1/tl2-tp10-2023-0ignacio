@@ -1,0 +1,39 @@
+@model Tarea
+
+<h1>Modificar Tarea</h1>
+
+<form asp-controller="Tarea" asp-action="ConfirmUpdateTarea" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
+    <div>
+        <label>Nombre:</label>
+        <input asp-for="@Model.Nombre" />
+    </div>
+    <div>
+        <label>Descripción:</label>
+        <textarea asp-for="@Model.Desc"></textarea>
+    </div>
+    <div>
+        <label>Estado:</label>
+        <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()"></select>
+    </div>
+    <div>
+        <label>Color:</label>
+        <input asp-for="@Model.Color" type="color" />
+    </div>
+    <div>
+        <label>Id Tablero:</label>
+        <input asp-for="@Model.IdTablero" />
+    </div>
+    <div>
+        <label>Id Usuario Asignado:</label>
+        @if (Model.IdUsuarioAsignado != null)
+        {
+            <span>@Model.IdUsuarioAsignado</span>
+        }
+        else
+        {
+            <span>No Asignado</span>
+        }
+    </div>
+    <button type="submit">Guardar Cambios</button>
+</form>

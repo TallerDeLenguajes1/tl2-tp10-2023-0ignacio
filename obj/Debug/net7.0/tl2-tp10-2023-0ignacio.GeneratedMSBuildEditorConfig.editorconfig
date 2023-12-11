@@ -9,49 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = tl2_tp10_2023_0ignacio
 build_property.RootNamespace = tl2_tp10_2023_0ignacio
-build_property.ProjectDir = c:\Users\Alumno\Desktop\dfd\tl2-tp10-2023-0ignacio\
+build_property.ProjectDir = C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl2-tp10-2023-0ignacio\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\Alumno\Desktop\dfd\tl2-tp10-2023-0ignacio
+build_property.MSBuildProjectDirectory = C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl2-tp10-2023-0ignacio
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Home/Index.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Home/Privacy.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Shared/Error.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Usuario/CrearUsuario.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhclVzdWFyaW8uY3NodG1s
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tablero/DeleteTablero.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xEZWxldGVUYWJsZXJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Usuario/Index.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tablero/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tablero/NewTablero.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xOZXdUYWJsZXJvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tablero/UpdateTablero.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xVcGRhdGVUYWJsZXJvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tarea/DeleteTarea.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcRGVsZXRlVGFyZWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tarea/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tarea/NewTarea.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcTmV3VGFyZWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Tarea/UpdateTarea.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcVXBkYXRlVGFyZWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Usuario/DeleteUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZWxldGVVc3VhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Usuario/GetAllUsuarios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xHZXRBbGxVc3Vhcmlvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Usuario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Usuario/ModificarUsuario.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xNb2RpZmljYXJVc3VhcmlvLmNzaHRtbA==
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Usuario/NewUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xOZXdVc3VhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/_ViewImports.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Usuario/UpdateUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xVcGRhdGVVc3VhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/_ViewStart.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Alumno/Desktop/dfd/tl2-tp10-2023-0ignacio/Views/Shared/_Layout.cshtml]
+[C:/Users/ignac/Documents/PDFs Facet/PU/2do año/2do cuatrimestre/Taller 2/TPs/tl2-tp10-2023-0ignacio/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-78gxejdnok

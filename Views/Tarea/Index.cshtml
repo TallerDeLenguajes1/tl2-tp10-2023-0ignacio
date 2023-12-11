@@ -1,0 +1,48 @@
+@model List<Tarea>
+
+<div>
+    <a asp-controller="Tarea" asp-action="NewTarea">Agregar Tareas</a>
+</div>
+<h1>Lista de Tareas</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Color</th>
+            <th scope="col">Id Tablero</th>
+            <th scope="col">Id Usuario Asignado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in Model)
+        {
+            <tr>
+                <td>@tarea.Id</td>
+                <td>@tarea.Nombre</td>
+                <td>@tarea.Desc</td>
+                <td>@tarea.Estado</td>
+                <td><input type="color" value="@tarea.Color" disabled /></td>
+                <td>@tarea.IdTablero</td>
+                <td>
+                    @if (tarea.IdUsuarioAsignado != null)
+                    {
+                        <span>@tarea.IdUsuarioAsignado</span>
+                    }
+                    else
+                    {
+                        <span>No Asignado</span>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Tarea" asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
+                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

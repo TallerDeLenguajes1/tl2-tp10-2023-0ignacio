@@ -22,31 +22,73 @@ public class UsuarioController : Controller
         return View(usuarios);
     }
 
+    public IActionResult GetAllUsuarios()
+    {
+        var usuarios = usuarioRepository.GetAll();
+        return View(usuarios);
+    }
+
     [HttpGet]
-    public IActionResult CrearUsuario()
+    public IActionResult NewUsuario()
     {
         return View(new Usuario());
     }
 
     [HttpPost]
-    public IActionResult CrearUsuario(Usuario usuario)
+    public IActionResult NewUsuario(Usuario usuario)
     {
-        usuarioRepository.Create(usuario);
-        return RedirectToAction("Index");
+        if(ModelState.IsValid)
+        {
+            usuarioRepository.Create(usuario);
+            return RedirectToAction("GetAllUsuarios");
+        }
+        return View(usuario);
     }
 
     [HttpGet]
-    public IActionResult ModificarUsuario(int idUsuario)
+    public IActionResult UpdateUsuario(int Id)
     {
-        return View(usuarioRepository.GetById(idUsuario));
+        var usuario = usuarioRepository.GetById(Id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+
+        return View(usuario);
     }
     
     [HttpPost]
-    public IActionResult ModificarUsuario(Usuario usuario)
+    public IActionResult ConfirmUpdateUsuario(Usuario usuario)
     {
-        usuarioRepository.Update(usuario.Id, usuario);
-        return RedirectToAction("Index");
+        if (ModelState.IsValid)
+        {
+            usuarioRepository.Update(usuario.Id, usuario);
+            return RedirectToAction("GetAllUsuarios");
+        }
+        return View(usuario);
     }
 
+    
+    public IActionResult DeleteUsuario(int Id)
+    {
+        var usuario = usuarioRepository.GetById(Id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+        return View(usuario);
+    } 
 
+    [HttpPost]
+    public IActionResult ConfirmDeleteUsuario(Usuario usuario)
+    {
+        usuarioRepository.Delete(usuario.Id);
+        return RedirectToAction("GetAllUsuarios");
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 }

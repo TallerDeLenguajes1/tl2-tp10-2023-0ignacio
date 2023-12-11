@@ -28,7 +28,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 
         public void Update(int id, Usuario usuario)
         {
-            var query = $"UPDATE Usuario SET nombre_de_usuario = '@nombreDeUsuario' WHERE id_usuario = @idUsuario";
+            var query = $"UPDATE Usuario SET nombre_de_usuario = @nombreDeUsuario WHERE id_usuario = @idUsuario";
             
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
@@ -69,11 +69,11 @@ namespace tl2_tp10_2023_0ignacio.Repositories
         public Usuario GetById(int idUsuario)
         {
             var query = @"SELECT * FROM Usuario WHERE id_usuario = @idUsuario";
-            var usuario = new Usuario();
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){
+                connection.Open();
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
-                connection.Open();
+                var usuario = new Usuario();
                 using(SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while(reader.Read())
@@ -83,8 +83,8 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                     }
                 }
                 connection.Close();
+                return usuario;
             }
-            return usuario;
         }
 
         public void Delete(int idUsuario)

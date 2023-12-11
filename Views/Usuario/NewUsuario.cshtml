@@ -1,0 +1,11 @@
+@model Usuario
+
+<form asp-controller="Usuario" asp-action="NewUsuario">
+    <div class="form-group">
+        <label asp-for="@Model.NombreDeUsuario"></label>
+        <input asp-for="@Model.NombreDeUsuario" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success"
+        onclick="return confirm('¿Estás seguro de crear el usuario?')">Agregar</button>
+</form>

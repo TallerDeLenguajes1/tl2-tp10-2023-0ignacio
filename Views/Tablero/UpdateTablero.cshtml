@@ -1,0 +1,19 @@
+@model Tablero
+
+<form asp-controller="Tablero" asp-action="ConfirmUpdateTablero" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
+    <div>
+        <label>Nombre:</label>
+        <input asp-for="@Model.Nombre" />
+    </div>
+    <div>
+        <label>Descripción:</label>
+        <textarea asp-for="@Model.Desc"></textarea>
+    </div>
+    <div>
+        <label>Id usuario propietario:</label>
+        <input asp-for="@Model.IdUsuarioPropietario" />
+    </div>
+    <button type="submit">Guardar Cambios</button>
+
+</form>
