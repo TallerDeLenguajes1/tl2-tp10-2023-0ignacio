@@ -14,20 +14,6 @@ public class UpdateTareaViewModel
     private string color;
     private int? idUsuarioAsignado;
 
-    public UpdateTareaViewModel()
-    {
-    }
-
-    public UpdateTareaViewModel(Tarea tarea)
-    {
-        this.id = tarea.Id;
-        this.idTablero = tarea.IdTablero;
-        this.nombre = tarea.Nombre;
-        this.Estado = tarea.Estado;
-        this.color = tarea.Color;
-        this.IdUsuarioAsignado = tarea.IdUsuarioAsignado;
-    }
-
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Id")]
     public int Id { get => id; set => id = value; }
@@ -43,7 +29,7 @@ public class UpdateTareaViewModel
 
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Estado Tarea")]
-    internal EstadoTarea Estado { get => estado; set => estado = value; }
+    public EstadoTarea Estado { get => estado; set => estado = value; }
 
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [MaxLength(50, ErrorMessage = "La descripcion debe tener hasta 50 caracteres")]
@@ -57,4 +43,18 @@ public class UpdateTareaViewModel
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Id Usuario Asignado")]
     public int? IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
+
+    public UpdateTareaViewModel()
+    {
+    }
+
+    public UpdateTareaViewModel(Tarea tarea)
+    {
+        this.id = tarea.Id;
+        this.idTablero = tarea.IdTablero;
+        this.nombre = tarea.Nombre;
+        this.Estado = tarea.Estado;
+        this.color = tarea.Color;
+        this.IdUsuarioAsignado = tarea.IdUsuarioAsignado;
+    }
 }

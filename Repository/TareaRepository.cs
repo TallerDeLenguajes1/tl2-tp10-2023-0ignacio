@@ -9,7 +9,12 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 {
     public class TareaRepository : ITareaRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string cadenaConexion;
+
+        public TareaRepository(string CadenaDeConexion)
+        {
+            cadenaConexion = CadenaDeConexion;
+        }
 
         public void Create(Tarea tarea)
         {

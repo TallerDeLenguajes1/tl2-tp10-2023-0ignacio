@@ -9,7 +9,13 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 {
     public class TableroRepository : ITableroRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string cadenaConexion;
+
+        public TableroRepository(string CadenaDeConexion)
+        {
+            cadenaConexion = CadenaDeConexion;
+        }
+        
         public void Create(Tablero tablero)
         {
             var query = $"INSERT INTO Tablero (id_usuario_propietario, nombre_tablero, descripcion_tablero) VALUES (@idUsuarioProp, @nombreTablero, @descTablero)";

@@ -24,7 +24,7 @@ public class NewTareaViewModel
 
     [Required(ErrorMessage = "Complete el campo")]
     [Display(Name = "Estado Tarea")]
-    internal EstadoTarea Estado { get => estado; set => estado = value; }
+    public EstadoTarea Estado { get => estado; set => estado = value; }
     
     [MaxLength(50, ErrorMessage = "La descripcion debe tener hasta 50 caracteres")]
     [Display(Name = "Descripcion")]

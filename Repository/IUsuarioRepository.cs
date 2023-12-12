@@ -13,5 +13,6 @@ namespace tl2_tp10_2023_0ignacio.Repositories
         public List<Usuario> GetAll();
         public Usuario GetById(int idUsuario);
         public void Delete(int idUsuario);
+        public Usuario ValidateUsuario(Usuario usuario);
     }
 }

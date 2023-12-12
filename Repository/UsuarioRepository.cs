@@ -10,7 +10,12 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string cadenaConexion;
+
+        public UsuarioRepository(string CadenaDeConexion)
+        {
+            cadenaConexion = CadenaDeConexion;
+        }
 
         public void Create(Usuario usuario)
         {
@@ -105,6 +110,37 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
+            }
+        }
+
+        public Usuario ValidateUsuario(Usuario usuario)
+        {
+            var query = @"SELECT * FROM Usuario WHERE nombre_de_usuario = @nombreDeUsuario AND pass_usuario = @passUsuario";
+            using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                command.Parameters.Add(new SQLiteParameter("@idUsuario", usuario.Id));
+                command.Parameters.Add(new SQLiteParameter("@nombreDeUsuario", usuario.NombreDeUsuario));
+                command.Parameters.Add(new SQLiteParameter("@passUsuario", usuario.Pass));
+                command.Parameters.Add(new SQLiteParameter("@rolUsuario", Convert.ToInt32(usuario.Rol)));
+                var usuarioAux = new Usuario();
+                using(SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        usuarioAux.Id = Convert.ToInt32(reader["id_usuario"]);
+                        usuarioAux.NombreDeUsuario = reader["nombre_de_usuario"].ToString();
+                        usuarioAux.Pass = reader["pass_usuario"].ToString();
+                        usuarioAux.Rol = (Roles)Convert.ToInt32(reader["rol_usuario"]);
+                    }
+                }
+                connection.Close();
+                if(usuarioAux != null)
+                {
+                    return usuarioAux;
+                }else{
+                    return null;
+                }
             }
         }
     }

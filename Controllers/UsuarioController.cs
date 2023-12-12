@@ -9,12 +9,12 @@ namespace tl2_tp10_2023_0ignacio.Controllers;
 public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
-    private UsuarioRepository usuarioRepository;
+    private IUsuarioRepository _usuarioRepository;
 
-    public UsuarioController(ILogger<UsuarioController> logger)
+    public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
-        usuarioRepository = new UsuarioRepository();
+        _usuarioRepository = usuarioRepository;
     }
 
     public IActionResult Index()
@@ -24,7 +24,7 @@ public class UsuarioController : Controller
 
     public IActionResult GetAllUsuarios()
     {
-        GetAllUsuariosViewModel usuarios = new GetAllUsuariosViewModel(usuarioRepository.GetAll());
+        GetAllUsuariosViewModel usuarios = new GetAllUsuariosViewModel(_usuarioRepository.GetAll());
         
         if(isAdmin())
         {
@@ -43,7 +43,7 @@ public class UsuarioController : Controller
     [HttpGet] 
     public IActionResult GetAllUsuariosOperador()
     {
-        UsuarioViewModel usuario = new UsuarioViewModel(usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+        UsuarioViewModel usuario = new UsuarioViewModel(_usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
 
         if(HttpContext.Session.GetString("Rol") == "Operador")
         {
@@ -72,7 +72,7 @@ public class UsuarioController : Controller
         if(ModelState.IsValid)
         {
             Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-            usuarioRepository.Create(usuario);
+            _usuarioRepository.Create(usuario);
             return RedirectToAction("GetAllUsuarios");
         }
         return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -83,7 +83,7 @@ public class UsuarioController : Controller
     {
         if(isAdmin())
         {
-            UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(usuarioRepository.GetById(Id));
+            UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(_usuarioRepository.GetById(Id));
             return View(usuario);
         } else
         {
@@ -97,7 +97,7 @@ public class UsuarioController : Controller
         if (ModelState.IsValid)
         {
             Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-            usuarioRepository.Update(usuarioVM.Id, usuario);
+            _usuarioRepository.Update(usuarioVM.Id, usuario);
             return RedirectToAction("GetAllUsuarios");
         }
         return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -108,7 +108,7 @@ public class UsuarioController : Controller
     {
         if(isAdmin())
         {
-            Usuario usuario = usuarioRepository.GetById(Id);
+            Usuario usuario = _usuarioRepository.GetById(Id);
             return View(usuario);
         } else
         {
@@ -119,8 +119,12 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult ConfirmDeleteUsuario(Usuario usuario)
     {
-        usuarioRepository.Delete(usuario.Id);
-        return RedirectToAction("GetAllUsuarios");
+        if(ModelState.IsValid)
+        {
+            _usuarioRepository.Delete(usuario.Id);
+            return RedirectToAction("GetAllUsuarios");
+        }
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     private bool isAdmin()

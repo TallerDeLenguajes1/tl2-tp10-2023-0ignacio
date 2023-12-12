@@ -14,6 +14,14 @@ public class TareaViewModel
     private string color;
     private int? idUsuarioAsignado;
 
+    public int Id { get => id; set => id = value; }
+    public int IdTablero { get => idTablero; set => idTablero = value; }
+    public string Nombre { get => nombre; set => nombre = value; }
+    public EstadoTarea Estado { get => estado; set => estado = value; }
+    public string Desc { get => desc; set => desc = value; }
+    public string Color { get => color; set => color = value; }
+    public int? IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
+    
     public TareaViewModel()
     {
     }
@@ -28,11 +36,4 @@ public class TareaViewModel
         this.IdUsuarioAsignado = tarea.IdUsuarioAsignado;
     }
 
-    public int Id { get => id; set => id = value; }
-    public int IdTablero { get => idTablero; set => idTablero = value; }
-    public string Nombre { get => nombre; set => nombre = value; }
-    internal EstadoTarea Estado { get => estado; set => estado = value; }
-    public string Desc { get => desc; set => desc = value; }
-    public string Color { get => color; set => color = value; }
-    public int? IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
 }

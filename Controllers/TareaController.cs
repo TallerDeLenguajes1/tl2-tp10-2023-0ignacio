@@ -9,19 +9,19 @@ namespace tl2_tp10_2023_0ignacio.Controllers;
 public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
-    private TareaRepository tareaRepository;
+    private ITareaRepository _tareaRepository;
 
-    public TareaController(ILogger<TareaController> logger)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
     {
         _logger = logger;
-        tareaRepository = new TareaRepository();
+        _tareaRepository = tareaRepository;
     }
 
     public IActionResult Index()
     {
         if(isAdmin())
         {
-            GetAllTareasViewModel tareas = new GetAllTareasViewModel(tareaRepository.GetAll());
+            GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetAll());
             if(tareas != null)
             {
                 return View(tareas);
@@ -38,7 +38,7 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.GetString("Rol") == "Operador")
         {
-            GetAllTareasViewModel tareas = new GetAllTareasViewModel(tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+            GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
             return View("GetAllTareasOperador",tareas);
         } else
         {
@@ -63,7 +63,7 @@ public class TareaController : Controller
         if(ModelState.IsValid)
         {
             Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-            tareaRepository.Create(tarea);
+            _tareaRepository.Create(tarea);
             return RedirectToAction("Index");
         }
         return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -74,7 +74,7 @@ public class TareaController : Controller
     {
         if (isAdmin())
         {
-            TareaViewModel tarea = new TareaViewModel(tareaRepository.GetById(Id));
+            TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
             return View(tarea);
         }else{
             return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -87,7 +87,7 @@ public class TareaController : Controller
         if(ModelState.IsValid)
         {
             Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-            tareaRepository.Update(tareaVM.Id, tarea);
+            _tareaRepository.Update(tareaVM.Id, tarea);
             return RedirectToAction("Index");
         }
         return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -98,7 +98,7 @@ public class TareaController : Controller
     {
         if (isAdmin())
         {
-            TareaViewModel tarea = new TareaViewModel(tareaRepository.GetById(Id));
+            TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
             return View(tarea);
         }else{
             return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -108,8 +108,12 @@ public class TareaController : Controller
     [HttpPost]
     public IActionResult ConfirmDeleteTarea(Tarea tarea)
     {
-        tareaRepository.Delete(tarea.Id);
-        return RedirectToAction("Index");
+        if(ModelState.IsValid)
+        {
+            _tareaRepository.Delete(tarea.Id);
+            return RedirectToAction("Index");
+        }
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     private bool isAdmin()

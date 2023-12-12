@@ -8,12 +8,12 @@ namespace tl2_tp10_2023_0ignacio.Controllers;
 public class LoginController: Controller
 {
     private readonly ILogger<LoginController> _logger;
-    private readonly IUsuarioRepository usuarioRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
 
-    public LoginController(ILogger<LoginController> logger)
+    public LoginController(ILogger<LoginController> logger, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
-        usuarioRepository = new UsuarioRepository();
+        _usuarioRepository = usuarioRepository;
     }
 
     [HttpGet]
@@ -24,8 +24,7 @@ public class LoginController: Controller
     [HttpPost]
     public IActionResult Login(Usuario usuario){
         if(!ModelState.IsValid) return RedirectToAction("Index");
-        List<Usuario> usuarios = usuarioRepository.GetAll();
-        Usuario usuarioLoggeado = usuarios.FirstOrDefault(u => u.NombreDeUsuario == usuario.NombreDeUsuario && u.Pass == usuario.Pass);
+        Usuario usuarioLoggeado = _usuarioRepository.ValidateUsuario(usuario);
         
         if (usuarioLoggeado == null)
         {

@@ -9,5 +9,5 @@
 <form asp-controller="Tarea" asp-action="ConfirmDeleteTarea" method="post">
     <input asp-for="@Model.Id" type="hidden" />
     <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a asp-controller="Tarea" asp-action="GetAllTareas" class="btn btn-secondary">Cancelar</a>
+    <a asp-controller="Tarea" asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

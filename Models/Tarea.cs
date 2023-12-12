@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-enum EstadoTarea
+public enum EstadoTarea
 {
     Ideas = 0,
     ToDo = 1,
@@ -31,10 +31,10 @@ namespace tl2_tp10_2023_0ignacio.Models
         public string Nombre { get => nombre; set => nombre = value; }
         public string Desc { get => desc; set => desc = value; }
         public string Color { get => color; set => color = value; }
-        internal EstadoTarea Estado { get => estado; set => estado = value; }
+        public EstadoTarea Estado { get => estado; set => estado = value; }
 
         public Tarea(){}
-        internal Tarea(int idTablero, int? idUsuarioAsignado, string nombre, EstadoTarea estado, string desc, string color)
+        public Tarea(int idTablero, int? idUsuarioAsignado, string nombre, EstadoTarea estado, string desc, string color)
         {
             this.idTablero = idTablero;
             this.idUsuarioAsignado = idUsuarioAsignado;
