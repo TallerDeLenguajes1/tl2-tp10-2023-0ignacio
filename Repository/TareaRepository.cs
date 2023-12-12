@@ -21,7 +21,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                 var command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@idTablero", tarea.IdTablero));
                 command.Parameters.Add(new SQLiteParameter("@nombreTarea", tarea.Nombre));
-                command.Parameters.Add(new SQLiteParameter("@estadoTarea", (int)tarea.Estado));
+                command.Parameters.Add(new SQLiteParameter("@estadoTarea", Convert.ToInt32(tarea.Estado)));
                 command.Parameters.Add(new SQLiteParameter("@descTarea", tarea.Desc));
                 command.Parameters.Add(new SQLiteParameter("@colorTarea", tarea.Color));
                 command.Parameters.Add(new SQLiteParameter("@idUsuarioAsignado", tarea.IdUsuarioAsignado));
@@ -41,7 +41,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                 command.Parameters.Add(new SQLiteParameter("@idTarea", id));
                 command.Parameters.Add(new SQLiteParameter("@idTablero", tarea.IdTablero));
                 command.Parameters.Add(new SQLiteParameter("@nombreTarea", tarea.Nombre));
-                command.Parameters.Add(new SQLiteParameter("@estadoTarea", (int)tarea.Estado));
+                command.Parameters.Add(new SQLiteParameter("@estadoTarea", Convert.ToInt32(tarea.Estado)));
                 command.Parameters.Add(new SQLiteParameter("@descTarea", tarea.Desc));
                 command.Parameters.Add(new SQLiteParameter("@colorTarea", tarea.Color));
                 command.Parameters.Add(new SQLiteParameter("@idUsuarioAsignado", tarea.IdUsuarioAsignado));
@@ -59,6 +59,37 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 connection.Open();
+
+                using(SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tarea = new Tarea();
+                        tarea.Id = Convert.ToInt32(reader["id_tarea"]);
+                        tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                        tarea.Nombre = reader["nombre_tarea"].ToString();
+                        tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado_tarea"]);
+                        tarea.Desc = reader["descripcion_tarea"].ToString();
+                        tarea.Color = reader["color_tarea"].ToString();
+                        tarea.IdUsuarioAsignado = (reader.IsDBNull(reader.GetOrdinal("id_usuario_asignado"))) ? null : Convert.ToInt32(reader["id_usuario_asignado"]);
+                        tareas.Add(tarea);
+                    }
+                }
+                connection.Close();
+            }
+            return tareas;
+        }
+
+        public List<Tarea> GetTareasByUsuario(int Id)
+        {
+            var query = @"SELECT * FROM Tarea where id_usuario_asignado = @idUsuarioAsignado";
+            List<Tarea> tareas = new List<Tarea>();
+
+            using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                connection.Open();
+                command.Parameters.Add(new SQLiteParameter("@idUsuarioAsignado", Id));
 
                 using(SQLiteDataReader reader = command.ExecuteReader())
                 {

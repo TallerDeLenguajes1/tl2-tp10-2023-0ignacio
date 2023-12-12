@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_0ignacio.Models;
+using tl2_tp10_2023_0ignacio.ViewModels;
 using tl2_tp10_2023_0ignacio.Repositories;
 
 namespace tl2_tp10_2023_0ignacio.Controllers;
@@ -18,65 +19,101 @@ public class UsuarioController : Controller
 
     public IActionResult Index()
     {
-        var usuarios = usuarioRepository.GetAll();
-        return View(usuarios);
+        return View();
     }
 
     public IActionResult GetAllUsuarios()
     {
-        var usuarios = usuarioRepository.GetAll();
-        return View(usuarios);
+        GetAllUsuariosViewModel usuarios = new GetAllUsuariosViewModel(usuarioRepository.GetAll());
+        
+        if(isAdmin())
+        {
+            return View(usuarios);
+        }else{
+            if (HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                return RedirectToAction("GetAllUsuariosOperador");
+            } else
+            {
+                return RedirectToRoute(new {controller = "Login", action = "Index"});
+            }
+        }
+    }
+
+    [HttpGet] 
+    public IActionResult GetAllUsuariosOperador()
+    {
+        UsuarioViewModel usuario = new UsuarioViewModel(usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+
+        if(HttpContext.Session.GetString("Rol") == "Operador")
+        {
+            return View(usuario);
+        } else
+        {
+            return RedirectToRoute(new {controller = "Login", action = "Index"});
+        }
     }
 
     [HttpGet]
     public IActionResult NewUsuario()
     {
-        return View(new Usuario());
+        if (isAdmin())
+        { 
+            return View(new NewUsuarioViewModel());
+        } else
+        {
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }
     }
 
     [HttpPost]
-    public IActionResult NewUsuario(Usuario usuario)
+    public IActionResult NewUsuario(NewUsuarioViewModel usuarioVM)
     {
         if(ModelState.IsValid)
         {
+            Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
             usuarioRepository.Create(usuario);
             return RedirectToAction("GetAllUsuarios");
         }
-        return View(usuario);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     [HttpGet]
     public IActionResult UpdateUsuario(int Id)
     {
-        var usuario = usuarioRepository.GetById(Id);
-        if (usuario == null)
+        if(isAdmin())
         {
-            return NotFound();
+            UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(usuarioRepository.GetById(Id));
+            return View(usuario);
+        } else
+        {
+             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-
-        return View(usuario);
     }
     
     [HttpPost]
-    public IActionResult ConfirmUpdateUsuario(Usuario usuario)
+    public IActionResult ConfirmUpdateUsuario(Usuario usuarioVM)
     {
         if (ModelState.IsValid)
         {
-            usuarioRepository.Update(usuario.Id, usuario);
+            Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
+            usuarioRepository.Update(usuarioVM.Id, usuario);
             return RedirectToAction("GetAllUsuarios");
         }
-        return View(usuario);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     
     public IActionResult DeleteUsuario(int Id)
     {
-        var usuario = usuarioRepository.GetById(Id);
-        if (usuario == null)
+        if(isAdmin())
         {
-            return NotFound();
+            Usuario usuario = usuarioRepository.GetById(Id);
+            return View(usuario);
+        } else
+        {
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-        return View(usuario);
     } 
 
     [HttpPost]
@@ -84,6 +121,17 @@ public class UsuarioController : Controller
     {
         usuarioRepository.Delete(usuario.Id);
         return RedirectToAction("GetAllUsuarios");
+    }
+
+    private bool isAdmin()
+    {
+        if(HttpContext.Session != null && HttpContext.Session.GetString("Rol") == "Administrador")
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

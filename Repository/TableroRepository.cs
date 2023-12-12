@@ -70,6 +70,34 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             return tableros;
         }
 
+        public List<Tablero> GetTablerosByUsuario(int Id)
+        {
+            var query = @"SELECT * FROM Tablero where id_usuario_propietario = @idUsuarioProp";
+            List<Tablero> tableros = new List<Tablero>();
+
+            using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                connection.Open();
+                command.Parameters.Add(new SQLiteParameter("@idUsuarioProp", Id));
+
+                using(SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tablero = new Tablero();
+                        tablero.Id = Convert.ToInt32(reader["id_tablero"]);
+                        tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                        tablero.Nombre = reader["nombre_tablero"].ToString();
+                        tablero.Desc = reader["descripcion_tablero"].ToString();
+                        tableros.Add(tablero);
+                    }
+                }
+                connection.Close();
+            }
+            return tableros;
+        }
+
         public Tablero GetById(int id)
         {
             var query = @"SELECT * FROM Tablero WHERE id_tablero = @idTablero";

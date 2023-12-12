@@ -32,5 +32,16 @@ namespace tl2_tp10_2023_0ignacio.Models
         public string Desc { get => desc; set => desc = value; }
         public string Color { get => color; set => color = value; }
         internal EstadoTarea Estado { get => estado; set => estado = value; }
+
+        public Tarea(){}
+        internal Tarea(int idTablero, int? idUsuarioAsignado, string nombre, EstadoTarea estado, string desc, string color)
+        {
+            this.idTablero = idTablero;
+            this.idUsuarioAsignado = idUsuarioAsignado;
+            this.nombre = nombre;
+            this.Estado = estado;
+            this.desc = desc;
+            this.color = color;
+        }
     }
 }

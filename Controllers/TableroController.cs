@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_0ignacio.Models;
 using tl2_tp10_2023_0ignacio.Repositories;
+using tl2_tp10_2023_0ignacio.ViewModels;
 
 namespace tl2_tp10_2023_0ignacio.Controllers;
 
@@ -18,59 +19,94 @@ public class TableroController : Controller
 
     public IActionResult Index()
     {
-        var tableros = tableroRepository.GetAll();
-        return View(tableros);
+        
+        if (isAdmin())
+        {
+            GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(tableroRepository.GetAll());
+            if(tableros != null)
+            {
+                return View(tableros);
+            } else
+            {
+                return NotFound();
+            }
+        }else{
+            return RedirectToAction("GetAllTablerosOperador");
+        }
+    }
+
+    public IActionResult GetAllTablerosOperador()
+    {
+        if (HttpContext.Session.GetString("Rol") == "Operador")
+        {
+            GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(tableroRepository.GetTablerosByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+            return View("GetAllTablerosOperador",tableros);
+        } else
+        {
+            return NotFound();
+        }
     }
 
     [HttpGet]
     public IActionResult NewTablero()
     {
-        return View(new Tablero());
+        if (isAdmin())
+        {
+            return View(new TableroViewModel());
+        } else
+        {
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }
     }
 
     [HttpPost]
-    public IActionResult NewTablero(Tablero tablero)
+    public IActionResult NewTablero(TableroViewModel tableroVM)
     {
         if(ModelState.IsValid)
         {
+            Tablero tablero = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
             tableroRepository.Create(tablero);
             return RedirectToAction("Index");
         }
-        return View(tablero);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     [HttpGet]
     public IActionResult UpdateTablero(int Id)
     {
-        var tablero = tableroRepository.GetById(Id);
-        if (tablero == null)
+        if (isAdmin())
         {
-            return NotFound();
+            TableroViewModel tablero = new TableroViewModel(tableroRepository.GetById(Id));
+            return View(tablero);
+        } else
+        {
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-
-        return View(tablero);
     }
     
     [HttpPost]
-    public IActionResult ConfirmUpdateTablero(Tablero tablero)
+    public IActionResult ConfirmUpdateTablero(UpdateTableroViewModel tableroVM)
     {
         if (ModelState.IsValid)
         {
-            tableroRepository.Update(tablero.Id, tablero);
+            Tablero tableroModificado = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
+            tableroRepository.Update(tableroVM.Id, tableroModificado);
             return RedirectToAction("Index");
         }
-        return View(tablero);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     
     public IActionResult DeleteTablero(int Id)
     {
-        var tablero = tableroRepository.GetById(Id);
-        if (tablero == null)
+        if (isAdmin())
         {
-            return NotFound();
+            Tablero tablero = tableroRepository.GetById(Id);
+            return View(tablero);
+        } else
+        {
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-        return View(tablero);
     } 
 
     [HttpPost]
@@ -78,6 +114,17 @@ public class TableroController : Controller
     {
         tableroRepository.Delete(tablero.Id);
         return RedirectToAction("Index");
+    }
+
+    private bool isAdmin()
+    {
+        if (HttpContext.Session != null && HttpContext.Session.GetString("Rol") == "Administrador")
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

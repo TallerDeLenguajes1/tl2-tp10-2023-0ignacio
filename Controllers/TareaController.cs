@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_0ignacio.Models;
 using tl2_tp10_2023_0ignacio.Repositories;
+using tl2_tp10_2023_0ignacio.ViewModels;
 
 namespace tl2_tp10_2023_0ignacio.Controllers;
 
@@ -18,59 +19,90 @@ public class TareaController : Controller
 
     public IActionResult Index()
     {
-        var tareas = tareaRepository.GetAll();
-        return View(tareas);
+        if(isAdmin())
+        {
+            GetAllTareasViewModel tareas = new GetAllTareasViewModel(tareaRepository.GetAll());
+            if(tareas != null)
+            {
+                return View(tareas);
+            }else{
+                return NotFound();
+            }
+        }else{
+            return RedirectToAction("GetAllTareasOperador");
+        }
+        
+    }
+
+    public IActionResult GetAllTareasOperador()
+    {
+        if (HttpContext.Session.GetString("Rol") == "Operador")
+        {
+            GetAllTareasViewModel tareas = new GetAllTareasViewModel(tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+            return View("GetAllTareasOperador",tareas);
+        } else
+        {
+            return NotFound();
+        }
     }
 
     [HttpGet]
     public IActionResult NewTarea()
     {
-        return View(new Tarea());
+        if(isAdmin())
+        {
+            return View(new TareaViewModel());
+        }else{
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }
     }
 
     [HttpPost]
-    public IActionResult NewTarea(Tarea tarea)
+    public IActionResult NewTarea(TareaViewModel tareaVM)
     {
         if(ModelState.IsValid)
         {
+            Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
             tareaRepository.Create(tarea);
             return RedirectToAction("Index");
         }
-        return View(tarea);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     [HttpGet]
     public IActionResult UpdateTarea(int Id)
     {
-        var tarea = tareaRepository.GetById(Id);
-        if (tarea == null)
+        if (isAdmin())
         {
-            return NotFound();
+            TareaViewModel tarea = new TareaViewModel(tareaRepository.GetById(Id));
+            return View(tarea);
+        }else{
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-
-        return View(tarea);
     }
     
     [HttpPost]
-    public IActionResult ConfirmUpdateTarea(Tarea tarea)
+    public IActionResult ConfirmUpdateTarea(TareaViewModel tareaVM)
     {
-        if (ModelState.IsValid)
+        if(ModelState.IsValid)
         {
-            tareaRepository.Update(tarea.Id, tarea);
+            Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+            tareaRepository.Update(tareaVM.Id, tarea);
             return RedirectToAction("Index");
         }
-        return View(tarea);
+        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     
     public IActionResult DeleteTarea(int Id)
     {
-        var tarea = tareaRepository.GetById(Id);
-        if (tarea == null)
+        if (isAdmin())
         {
-            return NotFound();
+            TareaViewModel tarea = new TareaViewModel(tareaRepository.GetById(Id));
+            return View(tarea);
+        }else{
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }
-        return View(tarea);
     } 
 
     [HttpPost]
@@ -78,6 +110,17 @@ public class TareaController : Controller
     {
         tareaRepository.Delete(tarea.Id);
         return RedirectToAction("Index");
+    }
+
+    private bool isAdmin()
+    {
+        if (HttpContext.Session != null && HttpContext.Session.GetString("Rol") == "Administrador")
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

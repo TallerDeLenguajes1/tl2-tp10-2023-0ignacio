@@ -1,0 +1,14 @@
+
+@model tl2_tp10_2023_0ignacio.ViewModels.LoginViewModel
+
+<form asp-controller="Login" asp-action="Login">
+    <label asp-for="@Model.NombreDeUsuario">Nombre de usuario</label>
+        <input asp-for="@Model.NombreDeUsuario">
+        <span asp-validation-for="@Model.NombreDeUsuario"></span>
+    <label asp-for="@Model.Pass">Contraseña</label>
+        <input asp-for="@Model.Pass">
+        <span asp-validation-for="@Model.Pass"></span>
+    <button type="submit">Iniciar sesion</button>
+</form>
+
+@section Scripts {<partial name="_ValidationScriptsPartial" />}

@@ -1,4 +1,7 @@
-@model Usuario
+@using tl2_tp10_2023_0ignacio.ViewModels
+
+@model UpdateUsuarioViewModel
+
 <h2>Confirmar modificacion de usuario</h2>
 <div>
     <p>¿Estás seguro de que deseas modificacion el nombre del usuario "@Model.NombreDeUsuario"?</p>
@@ -8,6 +11,10 @@
     <div class="form-group">
         <label asp-for="@Model.NombreDeUsuario"></label>
         <input asp-for="@Model.NombreDeUsuario" class="form-control" />
+        <label asp-for="@Model.Pass">Contraseña</label>
+        <input asp-for="@Model.Pass">
+        <label asp-for="@Model.Rol">Rol</label>
+        <input asp-for="@Model.Rol">
     </div>
     <button type="submit" class="btn btn-success">Actualizar</button>
     <a asp-controller="Usuario" asp-action="GetAllUsuarios" class="btn btn-danger">Cancelar</a>

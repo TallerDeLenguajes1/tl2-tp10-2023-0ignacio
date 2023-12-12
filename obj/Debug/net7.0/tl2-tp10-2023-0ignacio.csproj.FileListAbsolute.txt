@@ -128,3 +128,15 @@ C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl
 C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl2-tp10-2023-0ignacio\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.pdb
 C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl2-tp10-2023-0ignacio\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.genruntimeconfig.cache
 C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\tl2-tp10-2023-0ignacio\obj\Debug\net7.0\ref\tl2-tp10-2023-0ignacio.dll
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.csproj.AssemblyReference.cache
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.AssemblyInfoInputs.cache
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.AssemblyInfo.cs
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.csproj.CoreCompileInputs.cache
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.RazorAssemblyInfo.cache
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.RazorAssemblyInfo.cs
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.dll
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\refint\tl2-tp10-2023-0ignacio.dll
+C:\Users\ignac\Documents\PDFs Facet\PU\2do año\2do cuatrimestre\Taller 2\TPs\asdf\obj\Debug\net7.0\tl2-tp10-2023-0ignacio.pdb

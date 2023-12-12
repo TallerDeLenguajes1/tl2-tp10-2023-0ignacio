@@ -14,13 +14,15 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 
         public void Create(Usuario usuario)
         {
-            var query = $"INSERT INTO Usuario (nombre_de_usuario) VALUES (@nombreDeUsuario)";
+            var query = $"INSERT INTO Usuario (nombre_de_usuario, pass_usuario, rol_usuario) VALUES (@nombreDeUsuario, @passUsuario, @rolUsuario)";
 
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 connection.Open();
                 var command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@nombreDeUsuario", usuario.NombreDeUsuario));
+                command.Parameters.Add(new SQLiteParameter("@passUsuario", usuario.Pass));
+                command.Parameters.Add(new SQLiteParameter("@rolUsuario", Convert.ToInt32(usuario.Rol)));
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -28,7 +30,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 
         public void Update(int id, Usuario usuario)
         {
-            var query = $"UPDATE Usuario SET nombre_de_usuario = @nombreDeUsuario WHERE id_usuario = @idUsuario";
+            var query = $"UPDATE Usuario SET nombre_de_usuario = @nombreDeUsuario, pass_usuario = @passUsuario, rol_usuario = @rolUsuario WHERE id_usuario = @idUsuario";
             
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
@@ -36,6 +38,8 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                 var command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@idUsuario", id));
                 command.Parameters.Add(new SQLiteParameter("@nombreDeUsuario", usuario.NombreDeUsuario));
+                command.Parameters.Add(new SQLiteParameter("@passUsuario", usuario.Pass));
+                command.Parameters.Add(new SQLiteParameter("@rolUsuario", Convert.ToInt32(usuario.Rol)));
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -58,6 +62,8 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                         var usuario = new Usuario();
                         usuario.Id = Convert.ToInt32(reader["id_usuario"]);
                         usuario.NombreDeUsuario = reader["nombre_de_usuario"].ToString();
+                        usuario.Pass = reader["pass_usuario"].ToString();
+                        usuario.Rol = (Roles)Convert.ToInt32(reader["rol_usuario"]);
                         usuarios.Add(usuario);
                     }
                 }
@@ -80,6 +86,8 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                     {
                         usuario.Id = Convert.ToInt32(reader["id_usuario"]);
                         usuario.NombreDeUsuario = reader["nombre_de_usuario"].ToString();
+                        usuario.Pass = reader["pass_usuario"].ToString();
+                        usuario.Rol = (Roles)Convert.ToInt32(reader["rol_usuario"]);
                     }
                 }
                 connection.Close();

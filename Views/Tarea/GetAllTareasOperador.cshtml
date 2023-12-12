@@ -1,9 +1,6 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
 @model GetAllTareasViewModel
 
-<div>
-    <a asp-controller="Tarea" asp-action="NewTarea">Agregar Tareas</a>
-</div>
 <h1>Lista de Tareas</h1>
 
 <table>
@@ -16,7 +13,6 @@
             <th scope="col">Color</th>
             <th scope="col">Id Tablero</th>
             <th scope="col">Id Usuario Asignado</th>
-            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -38,10 +34,6 @@
                     {
                         <span>No Asignado</span>
                     }
-                </td>
-                <td>
-                    <a asp-controller="Tarea" asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
-                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
                 </td>
             </tr>
         }

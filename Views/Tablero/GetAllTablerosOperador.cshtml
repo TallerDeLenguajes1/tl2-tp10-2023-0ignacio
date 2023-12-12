@@ -1,9 +1,7 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
 @model GetAllTablerosViewModel
 
-<div>
-    <a asp-controller="Tablero" asp-action="NewTablero">Agregar Tableros</a>
-</div>
+
 <h1>Lista de Tableros</h1>
 
 <table>
@@ -13,7 +11,6 @@
             <th scope="col">Nombre</th>
             <th scope="col">Descripción</th>
             <th scope="col">IdUsuarioPropietario</th>
-            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -24,10 +21,6 @@
                 <td>@tablero.Nombre</td>
                 <td>@tablero.Desc</td>
                 <td>@tablero.IdUsuarioPropietario</td>
-                <td>
-                    <a asp-controller="Tablero" asp-action="UpdateTablero" asp-route-id="@tablero.Id">Editar</a>
-                    <a asp-controller="Tablero" asp-action="DeleteTablero" asp-route-id="@tablero.Id">Eliminar</a>
-                </td>
             </tr>
         }
     </tbody>
