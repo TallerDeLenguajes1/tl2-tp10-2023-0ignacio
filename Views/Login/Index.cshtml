@@ -1,13 +1,22 @@
 
 @model tl2_tp10_2023_0ignacio.ViewModels.LoginViewModel
 
+
 <form asp-controller="Login" asp-action="Login">
-    <label asp-for="@Model.NombreDeUsuario">Nombre de usuario</label>
-        <input asp-for="@Model.NombreDeUsuario">
-        <span asp-validation-for="@Model.NombreDeUsuario"></span>
-    <label asp-for="@Model.Pass">Contraseña</label>
-        <input asp-for="@Model.Pass">
-        <span asp-validation-for="@Model.Pass"></span>
+    <div class="mb-3 row">
+        <label asp-for="@Model.NombreDeUsuario" class="col-sm-2 col-form-label">Nombre de usuario</label>
+        <div class="col-sm-10">
+            <input type="text" asp-for="@Model.NombreDeUsuario" class="form-control-plaintext">
+            <span asp-validation-for="@Model.NombreDeUsuario"></span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label asp-for="@Model.Pass" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" asp-for="@Model.Pass">
+            <span asp-validation-for="@Model.Pass"></span>
+        </div>
+    </div>
     <button type="submit">Iniciar sesion</button>
 </form>
 
