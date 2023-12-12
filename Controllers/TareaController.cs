@@ -19,101 +19,149 @@ public class TareaController : Controller
 
     public IActionResult Index()
     {
-        if(isAdmin())
+        try
         {
-            GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetAll());
-            if(tareas != null)
+            if(isAdmin())
             {
-                return View(tareas);
+                GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetAll());
+                if(tareas != null)
+                {
+                    return View(tareas);
+                }else{
+                    return NotFound();
+                }
             }else{
-                return NotFound();
+                return RedirectToAction("GetAllTareasOperador");
             }
-        }else{
-            return RedirectToAction("GetAllTareasOperador");
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
         
     }
 
     public IActionResult GetAllTareasOperador()
     {
-        if (HttpContext.Session.GetString("Rol") == "Operador")
+        try
         {
-            GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
-            return View("GetAllTareasOperador",tareas);
-        } else
-        {
-            return NotFound();
+            if (HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+                return View("GetAllTareasOperador",tareas);
+            } else
+            {
+                return NotFound();
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
 
     [HttpGet]
     public IActionResult NewTarea()
     {
-        if(isAdmin())
+        try
         {
-            return View(new TareaViewModel());
-        }else{
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if(isAdmin())
+            {
+                return View(new TareaViewModel());
+            }else{
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
 
     [HttpPost]
     public IActionResult NewTarea(TareaViewModel tareaVM)
     {
-        if(ModelState.IsValid)
+        try
         {
-            Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-            _tareaRepository.Create(tarea);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid)
+            {
+                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                _tareaRepository.Create(tarea);
+                return RedirectToAction("Index");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     [HttpGet]
     public IActionResult UpdateTarea(int Id)
     {
-        if (isAdmin())
+        try
         {
-            TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
-            return View(tarea);
-        }else{
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if (isAdmin())
+            {
+                TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
+                return View(tarea);
+            }else{
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
     
     [HttpPost]
     public IActionResult ConfirmUpdateTarea(TareaViewModel tareaVM)
     {
-        if(ModelState.IsValid)
+        try
         {
-            Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-            _tareaRepository.Update(tareaVM.Id, tarea);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid)
+            {
+                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                _tareaRepository.Update(tareaVM.Id, tarea);
+                return RedirectToAction("Index");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     
     public IActionResult DeleteTarea(int Id)
     {
-        if (isAdmin())
+        try
         {
-            TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
-            return View(tarea);
-        }else{
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if (isAdmin())
+            {
+                TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
+                return View(tarea);
+            }else{
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     } 
 
     [HttpPost]
     public IActionResult ConfirmDeleteTarea(Tarea tarea)
     {
-        if(ModelState.IsValid)
+        try
         {
-            _tareaRepository.Delete(tarea.Id);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid)
+            {
+                _tareaRepository.Delete(tarea.Id);
+                return RedirectToAction("Index");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     private bool isAdmin()

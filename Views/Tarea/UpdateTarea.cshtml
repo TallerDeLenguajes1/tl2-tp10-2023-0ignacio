@@ -6,27 +6,27 @@
 <form asp-controller="Tarea" asp-action="ConfirmUpdateTarea" method="post">
     <input type="hidden" asp-for="@Model.Id" />
     <div>
-        <label>Nombre:</label>
+        <label asp-for="@Model.Nombre">Nombre:</label>
         <input asp-for="@Model.Nombre" />
     </div>
     <div>
-        <label>Descripción:</label>
+        <label asp-for="@Model.Desc>Descripción:">Descripción</label>
         <textarea asp-for="@Model.Desc"></textarea>
     </div>
     <div>
-        <label>Estado:</label>
+        <label asp-for="@Model.Estado">Estado:</label>
         <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()"></select>
     </div>
     <div>
-        <label>Color:</label>
+        <label asp-for="@Model.Color">Color:</label>
         <input asp-for="@Model.Color" type="color" />
     </div>
     <div>
-        <label>Id Tablero:</label>
+        <label asp-for="@Model.IdTablero">Id Tablero:</label>
         <input asp-for="@Model.IdTablero" />
     </div>
     <div>
-        <label>Id Usuario Asignado:</label>
+        <label asp-for="@Model.IdUsuarioAsignado">Id Usuario Asignado:</label>
         <input asp-for="@Model.IdUsuarioAsignado" />
     </div>
     <button type="submit">Guardar Cambios</button>

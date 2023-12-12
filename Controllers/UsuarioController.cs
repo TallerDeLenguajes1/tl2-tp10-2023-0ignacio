@@ -24,107 +24,155 @@ public class UsuarioController : Controller
 
     public IActionResult GetAllUsuarios()
     {
-        GetAllUsuariosViewModel usuarios = new GetAllUsuariosViewModel(_usuarioRepository.GetAll());
-        
-        if(isAdmin())
+        try
         {
-            return View(usuarios);
-        }else{
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            GetAllUsuariosViewModel usuarios = new GetAllUsuariosViewModel(_usuarioRepository.GetAll());
+            
+            if(isAdmin())
             {
-                return RedirectToAction("GetAllUsuariosOperador");
-            } else
-            {
-                return RedirectToRoute(new {controller = "Login", action = "Index"});
+                return View(usuarios);
+            }else{
+                if (HttpContext.Session.GetString("Rol") == "Operador")
+                {
+                    return RedirectToAction("GetAllUsuariosOperador");
+                } else
+                {
+                    return RedirectToRoute(new {controller = "Login", action = "Index"});
+                }
             }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
 
     [HttpGet] 
     public IActionResult GetAllUsuariosOperador()
     {
-        UsuarioViewModel usuario = new UsuarioViewModel(_usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+        try
+        {
+            UsuarioViewModel usuario = new UsuarioViewModel(_usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
 
-        if(HttpContext.Session.GetString("Rol") == "Operador")
-        {
-            return View(usuario);
-        } else
-        {
-            return RedirectToRoute(new {controller = "Login", action = "Index"});
+            if(HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                return View(usuario);
+            } else
+            {
+                return RedirectToRoute(new {controller = "Login", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
 
     [HttpGet]
     public IActionResult NewUsuario()
     {
-        if (isAdmin())
-        { 
-            return View(new NewUsuarioViewModel());
-        } else
+        try
         {
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if (isAdmin())
+            { 
+                return View(new NewUsuarioViewModel());
+            } else
+            {
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
 
     [HttpPost]
     public IActionResult NewUsuario(NewUsuarioViewModel usuarioVM)
     {
-        if(ModelState.IsValid)
+        try
         {
-            Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-            _usuarioRepository.Create(usuario);
-            return RedirectToAction("GetAllUsuarios");
+            if(ModelState.IsValid)
+            {
+                Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
+                _usuarioRepository.Create(usuario);
+                return RedirectToAction("GetAllUsuarios");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     [HttpGet]
     public IActionResult UpdateUsuario(int Id)
     {
-        if(isAdmin())
+        try
         {
-            UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(_usuarioRepository.GetById(Id));
-            return View(usuario);
-        } else
-        {
-             return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if(isAdmin())
+            {
+                UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(_usuarioRepository.GetById(Id));
+                return View(usuario);
+            } else
+            {
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     }
     
     [HttpPost]
     public IActionResult ConfirmUpdateUsuario(Usuario usuarioVM)
     {
-        if (ModelState.IsValid)
+        try
         {
-            Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-            _usuarioRepository.Update(usuarioVM.Id, usuario);
-            return RedirectToAction("GetAllUsuarios");
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
+                _usuarioRepository.Update(usuarioVM.Id, usuario);
+                return RedirectToAction("GetAllUsuarios");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     
     public IActionResult DeleteUsuario(int Id)
     {
-        if(isAdmin())
+        try
         {
-            Usuario usuario = _usuarioRepository.GetById(Id);
-            return View(usuario);
-        } else
-        {
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
+            if(isAdmin())
+            {
+                Usuario usuario = _usuarioRepository.GetById(Id);
+                return View(usuario);
+            } else
+            {
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
     } 
 
     [HttpPost]
     public IActionResult ConfirmDeleteUsuario(Usuario usuario)
     {
-        if(ModelState.IsValid)
+        try
         {
-            _usuarioRepository.Delete(usuario.Id);
-            return RedirectToAction("GetAllUsuarios");
+            if(ModelState.IsValid)
+            {
+                _usuarioRepository.Delete(usuario.Id);
+                return RedirectToAction("GetAllUsuarios");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
         }
-        return RedirectToRoute(new {controller = "Home", action = "Index"});
     }
 
     private bool isAdmin()

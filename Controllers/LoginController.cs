@@ -23,15 +23,25 @@ public class LoginController: Controller
 
     [HttpPost]
     public IActionResult Login(Usuario usuario){
-        if(!ModelState.IsValid) return RedirectToAction("Index");
-        Usuario usuarioLoggeado = _usuarioRepository.ValidateUsuario(usuario);
-        
-        if (usuarioLoggeado == null)
+        try
         {
-            return RedirectToAction("Index");
-        }else{
-            loggearUsuario(usuarioLoggeado);
-            return RedirectToRoute(new { controller = "Home", action = "Index"});
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            Usuario usuarioLoggeado = _usuarioRepository.ValidateUsuario(usuario);
+            
+            if (usuarioLoggeado.NombreDeUsuario == null)
+            {
+                _logger.LogWarning("Intento de acceso invalido - Usuario: " + usuario.NombreDeUsuario + " - Clave ingresada: " + usuario.Pass);
+                return RedirectToAction("Index");
+            }else{
+                loggearUsuario(usuarioLoggeado);
+                _logger.LogInformation("El usuario " + usuario.NombreDeUsuario + " ingreso correctamente!");
+                return RedirectToRoute(new { controller = "Home", action = "Index"});
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute(new { controller = "Login", action = "Index"});
         }
     }
 
