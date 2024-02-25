@@ -65,10 +65,11 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                return View(new TableroViewModel());
+                return View("NewTablero", new TableroViewModel());
             } else
             {
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                return View("NewTableroOperador", new TableroViewModel());
+                // return RedirectToRoute(new {controller = "Home", action = "Index"});
             }
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -93,6 +94,25 @@ public class TableroController : Controller
             return RedirectToRoute("Error"); 
         }
     }
+
+    [HttpPost]
+    public IActionResult NewTableroOperador(TableroViewModel tableroVM)
+    {
+        try
+        {
+            if(ModelState.IsValid)
+            {
+                Tablero tablero = new Tablero(int.Parse(HttpContext.Session.GetString("Id")), tableroVM.Nombre, tableroVM.Desc);
+                _tableroRepository.Create(tablero);
+                return RedirectToAction("Index");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
+        }
+    }
+    
 
     [HttpGet]
     public IActionResult UpdateTablero(int Id)
@@ -131,7 +151,7 @@ public class TableroController : Controller
         }
     }
 
-    
+
     public IActionResult DeleteTablero(int Id)
     {
         try

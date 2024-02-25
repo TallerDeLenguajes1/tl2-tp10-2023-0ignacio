@@ -19,7 +19,18 @@ public class UsuarioController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        if(isAdmin())
+        {
+            return View();
+        }else{
+            if (HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                return RedirectToAction("GetAllUsuariosOperador");
+            } else
+            {
+                return RedirectToRoute(new {controller = "Login", action = "Index"});
+            }
+        }
     }
 
     public IActionResult GetAllUsuarios()

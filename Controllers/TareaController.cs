@@ -10,11 +10,13 @@ public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
     private ITareaRepository _tareaRepository;
+    private ITableroRepository _tableroRepository;
 
-    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, ITableroRepository tableroRepository)
     {
         _logger = logger;
         _tareaRepository = tareaRepository;
+        _tableroRepository = tableroRepository;
     }
 
     public IActionResult Index()
@@ -65,9 +67,10 @@ public class TareaController : Controller
         {
             if(isAdmin())
             {
-                return View(new TareaViewModel());
+                return View("NewTarea", new TareaViewModel());
             }else{
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                return View("NewTareaOperador", new TareaOperadorViewModel(new Tarea(),_tableroRepository.GetTablerosByUsuario(int.Parse(HttpContext.Session.GetString("Id")))));
+                // return RedirectToRoute(new {controller = "Home", action = "Index"});
             }
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -83,6 +86,24 @@ public class TareaController : Controller
             if(ModelState.IsValid)
             {
                 Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                _tareaRepository.Create(tarea);
+                return RedirectToAction("Index");
+            }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
+        }
+    }
+
+    [HttpPost]
+    public IActionResult NewTareaOperador(NewTareaOperadorViewModel tareaOVM)
+    {
+        try
+        {
+            if(ModelState.IsValid)
+            {
+                Tarea tarea = new Tarea(tareaOVM.Tarea.IdTablero, tareaOVM.Tarea.IdUsuarioAsignado, tareaOVM.Tarea.Nombre, tareaOVM.Tarea.Estado, tareaOVM.Tarea.Desc, tareaOVM.Tarea.Color);
                 _tareaRepository.Create(tarea);
                 return RedirectToAction("Index");
             }

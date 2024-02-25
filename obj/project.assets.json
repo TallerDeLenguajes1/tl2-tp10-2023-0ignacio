@@ -2426,11 +2426,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ignac\\Documents\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
+      "projectUniqueName": "C:\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
       "projectName": "tl2-tp10-2023-0ignacio",
-      "projectPath": "C:\\Users\\ignac\\Documents\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
+      "projectPath": "C:\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
       "packagesPath": "C:\\Users\\ignac\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ignac\\Documents\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\obj\\",
+      "outputPath": "C:\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ignac\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2439,7 +2439,6 @@
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\sdk\\7.0.311\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2494,7 +2493,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.311\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

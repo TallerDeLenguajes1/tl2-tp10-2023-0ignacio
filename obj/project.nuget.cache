@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uI9BZlgTmxxQW1zA+Z10a8Cm+Vdo89V2FfMiL1R3yTcy6VbiETK4uUl+WjoIPSQTPgPVs3nzfGN/OCmhwGq2CA==",
+  "dgSpecHash": "5sNE+DMzKgt4XVVTl27dF+bbgigol1729R9CqHggOzoq18SDRMyFOlC1zJapREn7YqBZAje8mzbiULnnmPdyCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ignac\\Documents\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
+  "projectFilePath": "C:\\PDFs Facet\\PU\\2do año\\2do cuatrimestre\\Taller 2\\TPs\\tl2-tp10-2023-0ignacio\\tl2-tp10-2023-0ignacio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ignac\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\ignac\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",
