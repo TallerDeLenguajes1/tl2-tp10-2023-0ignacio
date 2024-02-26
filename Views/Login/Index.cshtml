@@ -2,22 +2,32 @@
 @model tl2_tp10_2023_0ignacio.ViewModels.LoginViewModel
 
 
-<form asp-controller="Login" asp-action="Login">
-    <div class="mb-3 row">
-        <label asp-for="@Model.NombreDeUsuario" class="col-sm-2 col-form-label">Nombre de usuario</label>
-        <div class="col-sm-10">
-            <input type="text" asp-for="@Model.NombreDeUsuario" class="form-control-plaintext">
-            <span asp-validation-for="@Model.NombreDeUsuario"></span>
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label asp-for="@Model.Pass" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" asp-for="@Model.Pass">
-            <span asp-validation-for="@Model.Pass"></span>
-        </div>
-    </div>
-    <button type="submit">Iniciar sesion</button>
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Logueo</h2>
+            <form asp-controller="Login" asp-action="Login">
+                <div class="mb-3 row">
+                    <div class="mb-3 row">
+                        <div>
+                            <label asp-for="@Model.NombreDeUsuario" class="col-sm-2 col-form-label">Nombre de usuario</label>
+                            <input type="text" asp-for="@Model.NombreDeUsuario" class="form-control">
+                            <span asp-validation-for="@Model.NombreDeUsuario"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-sm-10">
+                        <div>
+                            <label asp-for="@Model.Pass" class="col-sm-2 col-form-label">Password</label>
+                            <input type="password" class="form-control" asp-for="@Model.Pass">
+                            <span asp-validation-for="@Model.Pass"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success">Iniciar sesion</button>
+                </div>
+            </form>
 
 @section Scripts {<partial name="_ValidationScriptsPartial" />}

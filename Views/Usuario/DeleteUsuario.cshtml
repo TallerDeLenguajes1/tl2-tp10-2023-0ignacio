@@ -1,11 +1,21 @@
 @model Usuario
-<h2>Confirmar eliminación de usuario</h2>
-<div>
-    <p>¿Estás seguro de que deseas eliminar el usuario "@Model.NombreDeUsuario"? Si eliminas el usuario, se eliminaran sus Tableros y sus respectivas tareas.</p>
-</div>
 
-<form asp-controller="Usuario" asp-action="ConfirmDeleteUsuario" method="post">
-    <input asp-for="@Model.Id" type="hidden" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a asp-controller="Usuario" asp-action="GetAllUsuarios" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Confirmar eliminación de usuario</h2>
+
+            <div>
+                <p>¿Estás seguro de que deseas eliminar el usuario "@Model.NombreDeUsuario"? Si eliminas el usuario, se eliminaran sus Tableros y sus respectivas tareas.</p>
+            </div>
+
+            <form asp-controller="Usuario" asp-action="ConfirmDeleteUsuario" method="post">
+                <input asp-for="@Model.Id" type="hidden" />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-controller="Usuario" asp-action="GetAllUsuarios" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

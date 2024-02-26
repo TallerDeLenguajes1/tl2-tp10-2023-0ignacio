@@ -6,21 +6,27 @@
 <div class="text-center">
     <h1 class="display-4">Proyecto Canvas</h1>
     <div>
-        @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
-        {
-            <a asp-controller="Usuario" asp-action="Index">Usuarios</a>
-        }else{
-            <a asp-controller="Usuario" asp-action="Index">Ver Usuario</a>
-        }
+        <div class="btn-group" role="group" aria-label="Opciones">
+            @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+            {
+                <a asp-controller="Usuario" class="btn btn-info" asp-action="Index">Usuarios</a>
+            }else{
+                <a asp-controller="Usuario" class="btn btn-info" asp-action="Index">Ver Usuario</a>
+            }
+        </div>
         <br />
-        <a asp-controller="Tablero" asp-action="Index">Tableros</a>
+        <div class="btn-group" role="group" aria-label="Opciones">
+            <a asp-controller="Tablero" class="btn btn-info" asp-action="Index">Tableros</a>
+        </div>
         <br />
-        @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
-        {
-            <a asp-controller="Tarea" asp-action="Index">Ver Tareas</a>
-        }else{
-            <a asp-controller="Tarea" asp-action="Index">Ver mis Tareas</a>
-        }
+        <div class="btn-group" role="group" aria-label="Opciones">
+            @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+            {
+                <a asp-controller="Tarea" class="btn btn-info" asp-action="Index">Ver Tareas</a>
+            }else{
+                <a asp-controller="Tarea" class="btn btn-info" asp-action="Index">Ver mis Tareas</a>
+            }
+        </div>
     </div>
 </div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

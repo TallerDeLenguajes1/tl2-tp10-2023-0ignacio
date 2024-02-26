@@ -1,54 +1,69 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
 @model GetAllTareasAdminViewModel
 
-<div>
-    <a asp-controller="Tarea" asp-action="NewTarea">Agregar Tareas</a>
-</div>
-<h1>Lista de Tareas</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div>
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <a asp-controller="Tarea" class="btn btn-success" asp-action="NewTarea">Crear tarea</a>
+            </div>
+        </div>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <h2>Lista de Tareas</h2>
+        </div>
 
-<table>
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombre Tarea</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Color</th>
-            <th scope="col">Id Tablero</th>
-            <th scope="col">Nombre Tablero</th>
-            <th scope="col">Id Usuario Asignado</th>
-            <th scope="col">Nombre Usuario Asignado</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tarea in Model.TareasVM)
-        {
-            <tr>
-                <td>@tarea.Id</td>
-                <td>@tarea.Nombre</td>
-                <td>@tarea.Desc</td>
-                <td>@tarea.Estado</td>
-                <td><input type="color" value="@tarea.Color" disabled /></td>
-                <td>@tarea.IdTablero</td>
-                <td>@tarea.NombreTablero</td>
-                <td>
-                    @if (tarea.IdUsuarioAsignado != null)
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre Tarea</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Id Tablero</th>
+                        <th scope="col">Nombre Tablero</th>
+                        <th scope="col">Id Usuario Asignado</th>
+                        <th scope="col">Nombre Usuario Asignado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tarea in Model.TareasVM)
                     {
-                        <span>@tarea.IdUsuarioAsignado</span>
-                        <span>@tarea.NombreUsuarioAsignado</span>
+                        <tr>
+                            <td>@tarea.Id</td>
+                            <td>@tarea.Nombre</td>
+                            <td>@tarea.Desc</td>
+                            <td>@tarea.Estado</td>
+                            <td><input type="color" value="@tarea.Color" disabled /></td>
+                            <td>@tarea.IdTablero</td>
+                            <td>@tarea.NombreTablero</td>
+                            <td>
+                                @if (tarea.IdUsuarioAsignado != null)
+                                {
+                                    <span>@tarea.IdUsuarioAsignado</span>
+                                    <span>@tarea.NombreUsuarioAsignado</span>
+                                }
+                                else
+                                {
+                                    <span>No Asignado</span>
+                                    <span>No Asignado</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Opciones">
+                                    <a asp-controller="Tarea" class="btn btn-info"  asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Opciones">
+                                    <a asp-controller="Tarea" class="btn btn-info"  asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        <span>No Asignado</span>
-                        <span>No Asignado</span>
-                    }
-                </td>
-                <td>
-                    <a asp-controller="Tarea" asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
-                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>

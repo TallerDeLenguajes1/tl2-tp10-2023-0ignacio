@@ -1,13 +1,22 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
 @model TareaViewModel
 
-<h2>Confirmar eliminación de tarea</h2>
-<div>
-    <p>¿Estás seguro de que deseas eliminar la tarea "@Model.Nombre"?</p>
-</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Confirmar eliminación de tarea</h2>
 
-<form asp-controller="Tarea" asp-action="ConfirmDeleteTarea" method="post">
-    <input asp-for="@Model.Id" type="hidden" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a asp-controller="Tarea" asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+            <div>
+                <p>¿Estás seguro de que deseas eliminar la tarea "@Model.Nombre"?</p>
+            </div>
+
+            <form asp-controller="Tarea" asp-action="ConfirmDeleteTarea" method="post">
+                <input asp-for="@Model.Id" type="hidden" />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-controller="Tarea" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,40 +1,63 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
 @model NewTareaViewModel
 
-<form asp-controller="Tarea" asp-action="NewTarea" method="post">
-    <div>
-        <label asp-for="@Model.Nombre">Nombre:</label>
-        <input asp-for="@Model.Nombre" />
-    </div>
-    <div>
-        <label asp-for="@Model.Desc">Descripción:</label>
-        <textarea asp-for="@Model.Desc"></textarea>
-    </div>
-    <div>
-        <label asp-for="@Model.Estado">Estado:</label>
-        <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()">
-            <option value="">Seleccione un estado</option>
-        </select>
-    </div>
-    <div>
-        <label asp-for="@Model.Color">Color:</label>
-        <input asp-for="@Model.Color" type="color" />
-    </div>
-    <div>
-        <label asp-for="@Model.IdTablero">Tablero:</label>
-        <select asp-for="@Model.IdTablero" asp-items="@(new SelectList(Model.TablerosPropios, "Id", "Nombre"))">
-            <option value="">Seleccione un tablero</option>
-        </select>
-    </div>
-    <div>
-        <label asp-for="@Model.IdUsuarioAsignado">Asignar usuario:</label>
-        <select asp-for="@Model.IdUsuarioAsignado" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
-            <option value="">Seleccione un usuario</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success"
-        onclick="return confirm('¿Estás seguro de crear la tarea?')">Agregar</button>
 
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Crear Tarea</h2>
+            <form asp-controller="Tarea" asp-action="NewTarea" method="post">
+                <div class="mb-3 row">
+                    <div>
+                        <label asp-for="@Model.Nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                        <input asp-for="@Model.Nombre" class="form-control"/>
+                        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div>
+                        <label asp-for="@Model.Desc" class="col-sm-2 col-form-label">Descripción:</label>
+                        <textarea asp-for="@Model.Desc" class="form-control"></textarea>
+                        <span asp-validation-for="@Model.Desc" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div>
+                        <label asp-for="@Model.Estado" class="input-group-text">Estado:</label>
+                        <select asp-for="@Model.Estado" class="form-select" asp-items="@Html.GetEnumSelectList<EstadoTarea>()">
+                            <option value="">Seleccione un estado</option>
+                        </select>
+                        <span asp-validation-for="@Model.Estado" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div>
+                        <label asp-for="@Model.Color" class="input-group-text">Color:</label>
+                        <input asp-for="@Model.Color" type="color" class="form-control" />
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div>
+                        <label asp-for="@Model.IdTablero" class="input-group-text">Tablero:</label>
+                        <select asp-for="@Model.IdTablero" class="form-select" asp-items="@(new SelectList(Model.TablerosPropios, "Id", "Nombre"))">
+                            <option value="">Seleccione un tablero</option>
+                        </select>
+                        <span asp-validation-for="@Model.IdTablero" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div>
+                        <label asp-for="@Model.IdUsuarioAsignado" class="input-group-text">Asignar usuario:</label>
+                        <select asp-for="@Model.IdUsuarioAsignado" class="form-select" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+                            <option value="">Seleccione un usuario</option>
+                        </select>
+                        <span asp-validation-for="@Model.IdUsuarioAsignado" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success"
+                        onclick="return confirm('¿Estás seguro de crear la tarea?')">Agregar</button>
+                </div>
+            </form>
 
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

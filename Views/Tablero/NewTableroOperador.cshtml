@@ -1,19 +1,30 @@
 @model TableroViewModel
 
-<form asp-controller="Tablero" asp-action="NewTableroOperador" method="post">
-    <input type="hidden" asp-for="@Model.Id" />
-    <input type="hidden" asp-for="@Model.IdUsuarioPropietario" />
-    <div>
-        <label asp-for="@Model.Nombre">Nombre:</label>
-        <input asp-for="@Model.Nombre" />
-    </div>
-    <div>
-        <label asp-for="@Model.Desc">Descripción:</label>
-        <textarea asp-for="@Model.Desc"></textarea>
-    </div>
-    <button type="submit" class="btn btn-success"
-        onclick="return confirm('¿Estás seguro de crear el tablero?')">Agregar</button>
-
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Crear Tablero Propio</h2>
+            <form asp-controller="Tablero" asp-action="NewTableroOperador" method="post">
+                <input type="hidden" asp-for="@Model.Id" />
+                <input type="hidden" asp-for="@Model.IdUsuarioPropietario" />
+                <div class="mb-3 row">
+                    <div>
+                        <label asp-for="@Model.Nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                        <input asp-for="@Model.Nombre" class="form-control"/>
+                        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        <label asp-for="@Model.Desc" class="col-sm-2 col-form-label">Descripción:</label>
+                        <textarea asp-for="@Model.Desc" class="form-control"></textarea>
+                        <span asp-validation-for="@Model.Desc" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success"
+                        onclick="return confirm('¿Estás seguro de crear el tablero?')">Agregar</button>
+                </div>
+            </form>
 
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

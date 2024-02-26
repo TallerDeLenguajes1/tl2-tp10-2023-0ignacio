@@ -11,12 +11,20 @@
     <input type="hidden" asp-for="@Model.Color" />
     <input type="hidden" asp-for="@Model.IdUsuarioAsignado" />
     
-    <div>
-        <label asp-for="@Model.Estado">Estado:</label>
-        <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()"></select>
+    <div class="input-group mb-3">
+        <div>
+            <label asp-for="@Model.Estado" class="input-group-text">Estado:</label>
+            <select asp-for="@Model.Estado" class="form-select" asp-items="@Html.GetEnumSelectList<EstadoTarea>()">
+                <option value="">Seleccione un estado</option>
+            </select>
+            <span asp-validation-for="@Model.Estado" class="text-danger"></span>
+        </div>
     </div>
 
-    <button type="submit">Guardar Cambios</button>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success"
+            onclick="return confirm('¿Estás seguro de modificar la tarea?')">Guardar cambios</button>
+    </div>
 </form>
 
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

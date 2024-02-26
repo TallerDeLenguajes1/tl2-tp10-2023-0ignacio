@@ -2,49 +2,43 @@
 
 @model UpdateUsuarioViewModel
 
-<h2>Confirmar modificacion de usuario</h2>
-<div>
-    <p>¿Estás seguro de que deseas modificacion el nombre del usuario "@Model.NombreDeUsuario"?</p>
-</div>
-<form asp-controller="Usuario" asp-action="ConfirmUpdateUsuario">
-    <input hidden asp-for="@Model.Id" type="hidden">
-    <div class="mb-3 row">
-        <label asp-for="@Model.NombreDeUsuario" class="col-sm-2 col-form-label"></label>
-        <div>
-            <input asp-for="@Model.NombreDeUsuario" class="form-control" />
-            <span asp-validation-for="@Model.NombreDeUsuario"></span>
-        </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Modificacion de usuario</h2>
+            <form asp-controller="Usuario" asp-action="ConfirmUpdateUsuario">
+                <input hidden asp-for="@Model.Id" type="hidden">
+                <div class="mb-3 row">
+                    <div>
+                        <label asp-for="@Model.NombreDeUsuario" class="col-sm-2 col-form-label"></label>
+                        <input asp-for="@Model.NombreDeUsuario" class="form-control" />
+                        <span asp-validation-for="@Model.NombreDeUsuario"></span>
+                    </div>
+                </div>
 
-        <label asp-for="@Model.Pass" class="col-sm-2 col-form-label">Contraseña</label>
-        <div>
-            <input class="form-control" asp-for="@Model.Pass">
-            <span asp-validation-for="@Model.Pass"></span>
-        </div>
-        
-        <label asp-for="@Model.Rol" class="col-sm-2 col-form-label">Rol</label>
-        <div>
-            @* <input class="form-control" asp-for="@Model.Rol"> *@
-            <select asp-for="@Model.Rol" asp-items="@Html.GetEnumSelectList<Roles>()">
-                <option value="">Seleccione un estado</option>
-            </select>
-            <span asp-validation-for="@Model.Rol"></span>
-        </div>
-
-        <div>
-            <button type="submit" class="btn btn-success">Actualizar</button>
-            <a asp-controller="Usuario" asp-action="GetAllUsuarios" class="btn btn-danger">Cancelar</a>
-        </div>
-    </div>
-    @* <div class="form-group">
-        <label asp-for="@Model.NombreDeUsuario"></label>
-        <input asp-for="@Model.NombreDeUsuario" class="form-control" />
-
-        <label asp-for="@Model.Pass">Contraseña</label>
-        <input asp-for="@Model.Pass">
-        
-        <label asp-for="@Model.Rol">Rol</label>
-        <input asp-for="@Model.Rol">
-    </div> *@
-</form>
+                <div class="mb-3 row">
+                    <label asp-for="@Model.Pass" class="col-sm-2 col-form-label">Contraseña</label>
+                    <div>
+                        <input class="form-control" asp-for="@Model.Pass">
+                        <span asp-validation-for="@Model.Pass"></span>
+                    </div>
+                    
+                <div class="input-group mb-3">
+                    <div>
+                        <label asp-for="@Model.Rol" class="col-sm-2 col-form-label">Rol</label>
+                        @* <input class="form-control" asp-for="@Model.Rol"> *@
+                        <select asp-for="@Model.Rol" class="form-select" asp-items="@Html.GetEnumSelectList<Roles>()">
+                            <option value="">Seleccione un estado</option>
+                        </select>
+                        <span asp-validation-for="@Model.Rol"></span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div>
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <a asp-controller="Usuario" asp-action="GetAllUsuarios" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </div>
+            </form>
 
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }
