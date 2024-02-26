@@ -279,6 +279,43 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             }
         }
 
+        public void SetNullUsuarioAsignado(int Id)
+        {
+            try
+            {
+                var query = $"UPDATE Tarea SET id_usuario_asignado = NULL WHERE id_usuario_asignado = @idTarea;";
+                
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    connection.Open();
+                    var command = new SQLiteCommand(query, connection);
+                    command.Parameters.Add(new SQLiteParameter("@idTarea", Id));
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }catch(Exception){
+                throw new Exception("Hubo un problema al modificar el usuario asignado en la tarea.");
+            }
+        }
+
+        public void DeleteByTablero(int IdTablero)
+        {
+            try
+            {
+                var query = @"DELETE FROM Tarea WHERE id_tablero = @idTablero";
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    command.Parameters.Add(new SQLiteParameter("@idTablero", IdTablero));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }catch(Exception){
+                throw new Exception("Hubo un problema al eliminar las tareas del tablero.");
+            }
+        }
+
         public void Delete(int id)
         {
             try

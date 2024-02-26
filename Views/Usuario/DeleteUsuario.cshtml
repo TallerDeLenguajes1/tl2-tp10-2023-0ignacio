@@ -1,7 +1,7 @@
 @model Usuario
 <h2>Confirmar eliminación de usuario</h2>
 <div>
-    <p>¿Estás seguro de que deseas eliminar el usuario "@Model.NombreDeUsuario"?</p>
+    <p>¿Estás seguro de que deseas eliminar el usuario "@Model.NombreDeUsuario"? Si eliminas el usuario, se eliminaran sus Tableros y sus respectivas tareas.</p>
 </div>
 
 <form asp-controller="Usuario" asp-action="ConfirmDeleteUsuario" method="post">

@@ -1,7 +1,7 @@
 @model Tablero
 <h2>Confirmar eliminación del tablero</h2>
 <div>
-    <p>¿Estás seguro de que deseas eliminar el tablero "@Model.Nombre"?</p>
+    <p>¿Estás seguro de que deseas eliminar el tablero "@Model.Nombre"? Si eliminas este Tablero se eliminaran todas sus tareas.</p>
 </div>
 
 <form asp-controller="Tablero" asp-action="ConfirmDeleteTablero" method="post">

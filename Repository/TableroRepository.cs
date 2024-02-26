@@ -190,6 +190,24 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             }
         }
 
+        public void DeleteByUsuario(int IdUsuario)
+        {
+            try
+            {
+                var query = @"DELETE FROM Tablero WHERE id_usuario_propietario = @idUsuario";
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    command.Parameters.Add(new SQLiteParameter("@idUsuario", IdUsuario));
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }catch(Exception){
+                throw new Exception("Hubo un problema al eliminar los tableros del usuario.");
+            }
+        }
+
         public void Delete(int id)
         {
             try

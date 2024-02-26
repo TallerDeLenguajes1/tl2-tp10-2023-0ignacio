@@ -10,11 +10,15 @@ public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
     private IUsuarioRepository _usuarioRepository;
+    private ITareaRepository _tareaRepository;
+    private ITableroRepository _tableroRepository;
 
-    public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository usuarioRepository)
+    public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository usuarioRepository,ITareaRepository tareaRepository, ITableroRepository tableroRepository)
     {
         _logger = logger;
         _usuarioRepository = usuarioRepository;
+        _tareaRepository = tareaRepository;
+        _tableroRepository = tableroRepository;
     }
 
     public IActionResult Index()
@@ -176,6 +180,15 @@ public class UsuarioController : Controller
         {
             if(ModelState.IsValid)
             {
+                _tareaRepository.SetNullUsuarioAsignado(usuario.Id);
+
+                List<Tablero> tablerosAEliminar = _tableroRepository.GetTablerosByUsuario(usuario.Id);
+                foreach (var t in tablerosAEliminar)
+                {
+                    _tareaRepository.DeleteByTablero(t.Id);
+                }
+                
+                _tableroRepository.DeleteByUsuario(usuario.Id);
                 _usuarioRepository.Delete(usuario.Id);
                 return RedirectToAction("GetAllUsuarios");
             }

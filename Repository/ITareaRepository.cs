@@ -17,6 +17,8 @@ namespace tl2_tp10_2023_0ignacio.Repositories
         public List<Tarea> GetTareasUsuarioByTablero(int IdUsuario, int IdTablero);
         public List<Tarea> GetTareasNoAssignedByTablero( int IdTablero);
         public Tarea GetById(int id);
+        public void SetNullUsuarioAsignado(int Id);
+        public void DeleteByTablero(int IdTablero);
         public void Delete(int id);
     }
 }

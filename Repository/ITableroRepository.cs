@@ -14,6 +14,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
         public List<Tablero> GetTablerosByAssignedTasks(int Id_usuario);
         public List<Tablero> GetTablerosByUsuario(int Id);
         public Tablero GetById(int id);
+        public void DeleteByUsuario(int IdUsuario);
         public void Delete(int id);
     }
 }

@@ -11,12 +11,14 @@ public class TableroController : Controller
     private readonly ILogger<TableroController> _logger;
     private ITableroRepository _tableroRepository;
     private IUsuarioRepository _usuarioRepository;
+    private ITareaRepository _tareaRepository;
 
-    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository, IUsuarioRepository usuarioRepository)
+    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository, IUsuarioRepository usuarioRepository, ITareaRepository tareaRepository)
     {
         _logger = logger;
         _tableroRepository = tableroRepository;
         _usuarioRepository = usuarioRepository;
+        _tareaRepository = tareaRepository;
     }
 
     public IActionResult Index()
@@ -179,6 +181,7 @@ public class TableroController : Controller
         {
             if (ModelState.IsValid)
             {
+                _tareaRepository.DeleteByTablero(tablero.Id);
                 _tableroRepository.Delete(tablero.Id);
                 return RedirectToAction("Index");
             }
