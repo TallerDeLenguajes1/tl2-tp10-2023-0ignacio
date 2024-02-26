@@ -13,6 +13,7 @@ public class UpdateTareaViewModel
     private string desc;
     private string color;
     private int? idUsuarioAsignado;
+    private List<Usuario> usuarios;
 
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Id")]
@@ -43,12 +44,13 @@ public class UpdateTareaViewModel
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Id Usuario Asignado")]
     public int? IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
+    public List<Usuario> Usuarios { get => usuarios; set => usuarios = value; }
 
     public UpdateTareaViewModel()
     {
     }
 
-    public UpdateTareaViewModel(Tarea tarea)
+    public UpdateTareaViewModel(Tarea tarea, List<Usuario> usuarios)
     {
         this.id = tarea.Id;
         this.idTablero = tarea.IdTablero;
@@ -56,5 +58,6 @@ public class UpdateTareaViewModel
         this.Estado = tarea.Estado;
         this.color = tarea.Color;
         this.IdUsuarioAsignado = tarea.IdUsuarioAsignado;
+        this.usuarios = usuarios;
     }
 }

@@ -32,6 +32,7 @@ public class TareaViewModel
         this.idTablero = tarea.IdTablero;
         this.nombre = tarea.Nombre;
         this.Estado = tarea.Estado;
+        this.Desc = tarea.Desc;
         this.color = tarea.Color;
         this.IdUsuarioAsignado = tarea.IdUsuarioAsignado;
     }

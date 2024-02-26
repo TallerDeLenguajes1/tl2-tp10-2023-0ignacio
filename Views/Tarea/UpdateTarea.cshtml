@@ -1,16 +1,17 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
-@model TareaViewModel
+@model UpdateTareaViewModel
 
 <h1>Modificar Tarea</h1>
 
 <form asp-controller="Tarea" asp-action="ConfirmUpdateTarea" method="post">
     <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" asp-for="@Model.IdTablero" />
     <div>
         <label asp-for="@Model.Nombre">Nombre:</label>
         <input asp-for="@Model.Nombre" />
     </div>
     <div>
-        <label asp-for="@Model.Desc>Descripción:">Descripción</label>
+        <label asp-for="@Model.Desc">Descripción</label>
         <textarea asp-for="@Model.Desc"></textarea>
     </div>
     <div>
@@ -22,12 +23,10 @@
         <input asp-for="@Model.Color" type="color" />
     </div>
     <div>
-        <label asp-for="@Model.IdTablero">Id Tablero:</label>
-        <input asp-for="@Model.IdTablero" />
-    </div>
-    <div>
-        <label asp-for="@Model.IdUsuarioAsignado">Id Usuario Asignado:</label>
-        <input asp-for="@Model.IdUsuarioAsignado" />
+        <label asp-for="@Model.IdUsuarioAsignado">Usuario asignado:</label>
+        <select asp-for="@Model.IdUsuarioAsignado" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+            <option value="">Seleccione un usuario</option>
+        </select>
     </div>
     <button type="submit">Guardar Cambios</button>
 </form>

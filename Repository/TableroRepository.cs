@@ -47,7 +47,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                 {
                     connection.Open();
                     var command = new SQLiteCommand(query, connection);
-                    command.Parameters.Add(new SQLiteParameter("@idTablero", tablero.Id));
+                    command.Parameters.Add(new SQLiteParameter("@idTablero", id));
                     command.Parameters.Add(new SQLiteParameter("@idUsuarioProp", tablero.IdUsuarioPropietario));
                     command.Parameters.Add(new SQLiteParameter("@nombreTablero", tablero.Nombre));
                     command.Parameters.Add(new SQLiteParameter("@descTablero", tablero.Desc));

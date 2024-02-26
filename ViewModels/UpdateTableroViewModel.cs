@@ -10,6 +10,7 @@ public class UpdateTableroViewModel
     private int idUsuarioPropietario;
     private string nombre;
     private string desc;
+    private List<Usuario> usuarios;
     
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [Display(Name = "Id")]
@@ -28,18 +29,18 @@ public class UpdateTableroViewModel
     [MaxLength(50, ErrorMessage = "La descripcion debe tener hasta 50 caracteres")]
     [Display(Name = "Descripcion")]
     public string Desc { get => desc; set => desc = value; }
+    public List<Usuario> Usuarios { get => usuarios; set => usuarios = value; }
 
     public UpdateTableroViewModel()
     {
     }
 
-    public UpdateTableroViewModel(Tablero tableroModificado)
+    public UpdateTableroViewModel(Tablero tableroModificado, List<Usuario> usuarios)
     {
         this.id = tableroModificado.Id;
         this.idUsuarioPropietario = tableroModificado.IdUsuarioPropietario;
         this.nombre = tableroModificado.Nombre;
         this.desc = tableroModificado.Desc;
+        this.usuarios = usuarios;
     }
-
-
 }

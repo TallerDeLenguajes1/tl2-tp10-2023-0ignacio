@@ -109,8 +109,8 @@ public class TareaController : Controller
         {
             if (isAdmin())
             {
-                TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
-                return View(tarea);
+                return View(new UpdateTareaViewModel(_tareaRepository.GetById(Id), _usuarioRepository.GetAll()));
+                
             }else{
                 return RedirectToRoute(new {controller = "Home", action = "Index"});
             }

@@ -123,8 +123,8 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                TableroViewModel tablero = new TableroViewModel(_tableroRepository.GetById(Id));
-                return View(tablero);
+                return View(new UpdateTableroViewModel(_tableroRepository.GetById(Id), _usuarioRepository.GetAll()));
+                
             } else
             {
                 return RedirectToRoute(new {controller = "Home", action = "Index"});

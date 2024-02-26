@@ -1,4 +1,5 @@
-@model Tablero
+@using tl2_tp10_2023_0ignacio.ViewModels
+@model UpdateTableroViewModel
 
 <form asp-controller="Tablero" asp-action="ConfirmUpdateTablero" method="post">
     <input type="hidden" asp-for="@Model.Id" />
@@ -11,8 +12,10 @@
         <textarea asp-for="@Model.Desc"></textarea>
     </div>
     <div>
-        <label asp-for="@Model.IdUsuarioPropietario">Id usuario propietario:</label>
-        <input asp-for="@Model.IdUsuarioPropietario" />
+        <label asp-for="@Model.IdUsuarioPropietario">Usuario propietario:</label>
+        <select asp-for="@Model.IdUsuarioPropietario" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+            <option value="">Seleccione un usuario</option>
+        </select>
     </div>
     <button type="submit">Guardar Cambios</button>
 
