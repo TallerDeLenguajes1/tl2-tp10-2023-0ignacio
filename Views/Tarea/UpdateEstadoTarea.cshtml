@@ -1,0 +1,22 @@
+@using tl2_tp10_2023_0ignacio.ViewModels
+@model UpdateEstadoTareaViewModel
+
+<h1>Modificar estado de la tarea</h1>
+
+<form asp-controller="Tarea" asp-action="ConfirmUpdateTarea" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" asp-for="@Model.IdTablero" />
+    <input type="hidden" asp-for="@Model.Nombre" />
+    <input type="hidden" asp-for="@Model.Desc" />
+    <input type="hidden" asp-for="@Model.Color" />
+    <input type="hidden" asp-for="@Model.IdUsuarioAsignado" />
+    
+    <div>
+        <label asp-for="@Model.Estado">Estado:</label>
+        <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()"></select>
+    </div>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

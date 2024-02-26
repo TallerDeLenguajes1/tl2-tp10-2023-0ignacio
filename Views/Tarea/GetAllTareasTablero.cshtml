@@ -14,6 +14,7 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Color</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,10 @@
                     <td>@tarea.Desc</td>
                     <td>@tarea.Estado</td>
                     <td><input type="color" value="@tarea.Color" disabled /></td>
+                    <td>
+                        <a asp-controller="Tarea" asp-action="UpdateTarea" asp-route-id="@tarea.Id" asp-route-esPropietario="true">Editar</a>
+                        <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -42,6 +47,7 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Color</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +58,9 @@
                     <td>@tarea.Desc</td>
                     <td>@tarea.Estado</td>
                     <td><input type="color" value="@tarea.Color" disabled /></td>
+                    <td>
+                        <a asp-controller="Tarea" asp-action="UpdateEstadoTarea" asp-route-id="@tarea.Id">Editar estado</a>
+                    </td>
                 </tr>
             }
         </tbody>

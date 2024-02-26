@@ -128,13 +128,36 @@ public class TareaController : Controller
     
 
     [HttpGet]
-    public IActionResult UpdateTarea(int Id)
+    public IActionResult UpdateTarea(int Id, string esPropietario)
     {
         try
         {
             if (isAdmin())
             {
                 return View(new UpdateTareaViewModel(_tareaRepository.GetById(Id), _usuarioRepository.GetAll()));
+            }else{
+                var propietario = bool.Parse(esPropietario);
+                if (propietario)
+                {
+                    return View(new UpdateTareaViewModel(_tareaRepository.GetById(Id), _usuarioRepository.GetAll()));
+                }else{
+                    return RedirectToRoute(new {controller = "Home", action = "Index"});
+                }
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
+        }
+    }
+
+    [HttpGet]
+    public IActionResult UpdateEstadoTarea(int Id)
+    {
+        try
+        {
+            if (HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                return View(new UpdateEstadoTareaViewModel(_tareaRepository.GetById(Id)));
                 
             }else{
                 return RedirectToRoute(new {controller = "Home", action = "Index"});
