@@ -27,7 +27,7 @@ public class TareaController : Controller
         {
             if(isAdmin())
             {
-                GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetAll());
+                GetAllTareasAdminViewModel tareas = new GetAllTareasAdminViewModel(_tareaRepository.GetAll());
                 if(tareas != null)
                 {
                     return View(tareas);

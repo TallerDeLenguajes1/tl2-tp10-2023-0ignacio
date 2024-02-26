@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tl2_tp10_2023_0ignacio.Models;
+using tl2_tp10_2023_0ignacio.ViewModels;
 
 namespace tl2_tp10_2023_0ignacio.Repositories
 {
@@ -10,7 +11,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
     {
         public void Create(Tarea tarea);
         public void Update(int id, Tarea tarea);
-        public List<Tarea> GetAll();
+        public List<TareaUsuarioTableroViewModel> GetAll();
         public List<Tarea> GetTareasByUsuario(int Id);
         public List<Tarea> GetTareasByTablero(int Id);
         public List<Tarea> GetTareasUsuarioByTablero(int IdUsuario, int IdTablero);

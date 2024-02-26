@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using tl2_tp10_2023_0ignacio.Models;
+using tl2_tp10_2023_0ignacio.ViewModels;
 
 namespace tl2_tp10_2023_0ignacio.Repositories
 {
@@ -65,12 +66,12 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             }
         }
 
-        public List<Tarea> GetAll()
+        public List<TareaUsuarioTableroViewModel> GetAll()
         {
             try
             {
-                var query = @"SELECT * FROM Tarea";
-                List<Tarea> tareas = new List<Tarea>();
+                var query = @"SELECT Tarea.id_tarea, Tarea.id_tablero, Tarea.nombre_tarea, Tarea.estado_tarea, Tarea.descripcion_tarea, Tarea.color_tarea, Tarea.id_usuario_asignado, Tablero.nombre_tablero, Usuario.nombre_de_usuario FROM Tarea INNER JOIN Tablero ON(Tarea.id_tablero = Tablero.id_tablero) LEFT JOIN Usuario ON(Tarea.id_usuario_asignado = Usuario.id_usuario)";
+                List<TareaUsuarioTableroViewModel> tareas = new List<TareaUsuarioTableroViewModel>();
 
                 using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
                 {
@@ -81,9 +82,11 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                     {
                         while (reader.Read())
                         {
-                            var tarea = new Tarea();
+                            var tarea = new TareaUsuarioTableroViewModel();
                             tarea.Id = Convert.ToInt32(reader["id_tarea"]);
                             tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.NombreTablero = reader["nombre_tablero"].ToString();
+                            tarea.NombreUsuarioAsignado = (reader.IsDBNull(reader.GetOrdinal("id_usuario_asignado"))) ? null : reader["nombre_de_usuario"].ToString();
                             tarea.Nombre = reader["nombre_tarea"].ToString();
                             tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado_tarea"]);
                             tarea.Desc = reader["descripcion_tarea"].ToString();
