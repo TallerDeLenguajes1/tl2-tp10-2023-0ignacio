@@ -6,17 +6,25 @@ namespace tl2_tp10_2023_0ignacio.ViewModels;
 
 public class GetAllTablerosViewModel
 {
-    List<TableroViewModel> tablerosVM;
-    public List<TableroViewModel> TablerosVM { get => tablerosVM; set => tablerosVM = value; }
+    private List<TableroViewModel> tablerosPropios;
+    private List<TableroViewModel> tablerosAgenos;
+    public List<TableroViewModel> TablerosPropios { get => tablerosPropios; set => tablerosPropios = value; }
+    public List<TableroViewModel> TablerosAgenos { get => tablerosAgenos; set => tablerosAgenos = value; }
 
-    public GetAllTablerosViewModel(List<Tablero> tableros)
+    public GetAllTablerosViewModel(List<Tablero> tablerosProp, List<Tablero> tablerosAgen)
     {
-        tablerosVM = new List<TableroViewModel>();
+        tablerosPropios = new List<TableroViewModel>();
+        tablerosAgenos = new List<TableroViewModel>();
 
-        foreach (var tablero in tableros)
+        foreach (var tablero in tablerosProp)
         {
             TableroViewModel tableroNuevo = new TableroViewModel(tablero);
-            tablerosVM.Add(tableroNuevo);
+            tablerosPropios.Add(tableroNuevo);
+        }
+        foreach (var tablero in tablerosAgen)
+        {
+            TableroViewModel tableroNuevo = new TableroViewModel(tablero);
+            tablerosAgenos.Add(tableroNuevo);
         }
     }
 }

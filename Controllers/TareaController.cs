@@ -50,8 +50,33 @@ public class TareaController : Controller
         {
             if (HttpContext.Session.GetString("Rol") == "Operador")
             {
-                GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+                GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id"))));
                 return View("GetAllTareasOperador",tareas);
+            } else
+            {
+                return NotFound();
+            }
+        }catch(Exception ex){
+            _logger.LogError(ex.ToString());
+            return RedirectToRoute("Error"); 
+        }
+    }
+
+    public IActionResult GetTareasOperadorByTablero(int idTablero, string esPropietario)
+    {
+        try
+        {
+            if (HttpContext.Session.GetString("Rol") == "Operador")
+            {
+                var propietario = bool.Parse(esPropietario);
+                if(propietario)
+                {
+                    GetListsTareasViewModel tareas = new GetListsTareasViewModel(_tareaRepository.GetTareasUsuarioByTablero(Int32.Parse(HttpContext.Session.GetString("Id")), idTablero), _tareaRepository.GetTareasByTablero(idTablero), _tareaRepository.GetTareasNoAssignedByTablero(idTablero));
+                    return View("GetAllTareasTablero", tareas);
+                }else{
+                    GetListsTareasViewModel tareas = new GetListsTareasViewModel(_tareaRepository.GetTareasUsuarioByTablero(Int32.Parse(HttpContext.Session.GetString("Id")), idTablero), new List<Tarea>(), _tareaRepository.GetTareasNoAssignedByTablero(idTablero));
+                    return View("GetAllTareasTablero", tareas);
+                }
             } else
             {
                 return NotFound();

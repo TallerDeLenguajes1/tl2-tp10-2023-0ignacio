@@ -25,7 +25,7 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetAll());
+                GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetAll(), new List<Tablero>());
                 if(tableros != null)
                 {
                     return View(tableros);
@@ -48,7 +48,7 @@ public class TableroController : Controller
         {
             if (HttpContext.Session.GetString("Rol") == "Operador")
             {
-                GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetTablerosByUsuario(Int32.Parse(HttpContext.Session.GetString("Id")!)));
+                GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetTablerosByUsuario(Int32.Parse(HttpContext.Session.GetString("Id"))), _tableroRepository.GetTablerosByAssignedTasks(int.Parse(HttpContext.Session.GetString("Id"))));
                 return View("GetAllTablerosOperador",tableros);
             } else
             {

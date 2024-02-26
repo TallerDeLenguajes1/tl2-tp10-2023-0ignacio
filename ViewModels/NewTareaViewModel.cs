@@ -35,7 +35,6 @@ public class NewTareaViewModel
     [Display(Name = "Color")]
     public string Color { get => color; set => color = value; }
 
-    [Required(ErrorMessage = "Complete el campo")]
     [Display(Name = "Id Usuario Asignado")]
     public int? IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
     public List<Tablero> TablerosPropios { get => tablerosPropios; set => tablerosPropios = value; }

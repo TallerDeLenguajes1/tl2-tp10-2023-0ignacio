@@ -4,26 +4,65 @@
 <div>
     <a asp-controller="Tablero" asp-action="NewTablero">Agregar Tableros</a>
 </div>
-<h1>Lista de Tableros</h1>
-
-<table>
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">IdUsuarioPropietario</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tablero in Model.TablerosVM)
-        {
+@if(Model.TablerosPropios.Count <= 0){
+    <article>
+        <h2>No existen tableros propios</h2>
+    </article>
+}else{
+    <h2>Tableros propios</h2>
+    
+    <table>
+        <thead>
             <tr>
-                <td>@tablero.Id</td>
-                <td>@tablero.Nombre</td>
-                <td>@tablero.Desc</td>
-                <td>@tablero.IdUsuarioPropietario</td>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var tablero in Model.TablerosPropios)
+            {
+                <input type="hidden" asp-for="@tablero.Id" />
+                <tr>
+                    <td>@tablero.Nombre</td>
+                    <td>@tablero.Desc</td>
+                    <td>
+                        <a asp-controller="Tablero" asp-action="UpdateTablero" asp-route-id="@tablero.Id">Editar</a>
+                        <a asp-controller="Tablero" asp-action="DeleteTablero" asp-route-id="@tablero.Id">Eliminar</a>
+                        <a asp-controller="Tarea" asp-action="GetTareasOperadorByTablero" asp-route-idTablero="@tablero.Id" asp-route-esPropietario="true">Mostrar Tareas</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr>
+@if(Model.TablerosAgenos.Count <= 0){
+    <article>
+        <h2>No existen tableros asignados</h2>
+    </article>
+}else{
+    <h2>Tableros asignados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tablero in Model.TablerosAgenos)
+            {
+                <input type="hidden" asp-for="@tablero.Id" />
+                <tr>
+                    <td>@tablero.Nombre</td>
+                    <td>@tablero.Desc</td>
+                    <td>
+                        <a asp-controller="Tarea" asp-action="GetTareasOperadorByTablero" asp-route-idTablero="@tablero.Id" asp-route-esPropietario="false">Mostrar Tareas</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

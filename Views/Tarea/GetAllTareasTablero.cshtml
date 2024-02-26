@@ -1,0 +1,87 @@
+@using tl2_tp10_2023_0ignacio.ViewModels
+@model GetListsTareasViewModel
+
+@if(Model.TareasPropias.Count <= 0){
+    <article>
+        <h2>Tablero ageno</h2>
+    </article>
+}else{
+    <h2>Tareas propias en este tablero</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarea in Model.TareasPropias)
+            {
+                <tr>
+                    <td>@tarea.Nombre</td>
+                    <td>@tarea.Desc</td>
+                    <td>@tarea.Estado</td>
+                    <td><input type="color" value="@tarea.Color" disabled /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if(Model.TareasAsignadas.Count <= 0){
+    <article>
+        <h2>No tienes tareas asignadas en este tablero</h2>
+    </article>
+}else{
+    <h2>Tareas asignadas en este tablero</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarea in Model.TareasAsignadas)
+            {
+                <tr>
+                    <td>@tarea.Nombre</td>
+                    <td>@tarea.Desc</td>
+                    <td>@tarea.Estado</td>
+                    <td><input type="color" value="@tarea.Color" disabled /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if(Model.TareasNoAsignadas.Count <= 0){
+    <article>
+        <h2>No existen tareas que no esten asignadas</h2>
+    </article>
+}else{
+    <h2>Tareas no asignadas en este tablero</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarea in Model.TareasNoAsignadas)
+            {
+                <tr>
+                    <td>@tarea.Nombre</td>
+                    <td>@tarea.Desc</td>
+                    <td>@tarea.Estado</td>
+                    <td><input type="color" value="@tarea.Color" disabled /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

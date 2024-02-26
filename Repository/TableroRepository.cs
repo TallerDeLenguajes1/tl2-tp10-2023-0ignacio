@@ -91,6 +91,43 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             }
         }
 
+        public List<Tablero> GetTablerosByAssignedTasks(int Id_usuario)
+        {
+            try
+            {
+                List<Tablero> tableros = new List<Tablero>();
+
+                using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    connection.Open();
+                    string queryString = @"
+                    SELECT DISTINCT(tablero.id_tablero), id_usuario_propietario, tablero.nombre_tablero, tablero.descripcion_tablero FROM usuario INNER JOIN tablero ON(id_usuario = id_usuario_propietario) INNER JOIN tarea ON(tablero.id_tablero = tarea.id_tablero)WHERE id_usuario_asignado = @idUsuarioAsig AND id_usuario_propietario != @idUsuarioAsig;";
+                    var command = new SQLiteCommand(queryString, connection);
+                    command.Parameters.Add(new SQLiteParameter("@idUsuarioAsig", Id_usuario));
+
+                    using(var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read()){
+                            Tablero tablero = new Tablero();
+                            tablero.Id = Convert.ToInt32(reader["id_tablero"]);
+                            tablero.IdUsuarioPropietario= Convert.ToInt32(reader["id_usuario_propietario"]);
+                            tablero.Nombre = reader["nombre_tablero"].ToString();
+                            tablero.Desc = reader["descripcion_tablero"].ToString();
+                            
+                            tableros.Add(tablero); 
+                        }
+                    }
+
+                    connection.Close();
+                }
+            return tableros;
+
+            }catch(Exception){
+                
+                throw new Exception($"Hubo un problema al devolver la lista de tableros en los que el usuario tiene asignado tareas");
+            }
+        }
+
         public List<Tablero> GetTablerosByUsuario(int Id)
         {
             try

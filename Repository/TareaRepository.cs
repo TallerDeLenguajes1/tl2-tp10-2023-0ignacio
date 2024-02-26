@@ -136,6 +136,115 @@ namespace tl2_tp10_2023_0ignacio.Repositories
             }
         }
 
+        public List<Tarea> GetTareasByTablero(int Id)
+        {
+            try
+            {
+                var query = @"SELECT * FROM Tarea where id_tablero = @idTablero";
+                List<Tarea> tareas = new List<Tarea>();
+
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@idTablero", Id));
+
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var tarea = new Tarea();
+                            tarea.Id = Convert.ToInt32(reader["id_tarea"]);
+                            tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.Nombre = reader["nombre_tarea"].ToString();
+                            tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado_tarea"]);
+                            tarea.Desc = reader["descripcion_tarea"].ToString();
+                            tarea.Color = reader["color_tarea"].ToString();
+                            tarea.IdUsuarioAsignado = (reader.IsDBNull(reader.GetOrdinal("id_usuario_asignado"))) ? null : Convert.ToInt32(reader["id_usuario_asignado"]);
+                            tareas.Add(tarea);
+                        }
+                    }
+                    connection.Close();
+                }
+                return tareas;
+            }catch(Exception){
+                throw new Exception("Hubo un problema al devolver la lista de tareas del usuario.");
+            }
+        }
+
+        public List<Tarea> GetTareasUsuarioByTablero(int IdUsuario, int IdTablero)
+        {
+            try
+            {
+                var query = @"SELECT * FROM Tarea WHERE id_usuario_asignado = @idUsuarioAsignado AND id_tablero = @idTablero";
+                List<Tarea> tareas = new List<Tarea>();
+
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@idUsuarioAsignado", IdUsuario));
+                    command.Parameters.Add(new SQLiteParameter("@idTablero", IdTablero));
+
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var tarea = new Tarea();
+                            tarea.Id = Convert.ToInt32(reader["id_tarea"]);
+                            tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.Nombre = reader["nombre_tarea"].ToString();
+                            tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado_tarea"]);
+                            tarea.Desc = reader["descripcion_tarea"].ToString();
+                            tarea.Color = reader["color_tarea"].ToString();
+                            tarea.IdUsuarioAsignado = (reader.IsDBNull(reader.GetOrdinal("id_usuario_asignado"))) ? null : Convert.ToInt32(reader["id_usuario_asignado"]);
+                            tareas.Add(tarea);
+                        }
+                    }
+                    connection.Close();
+                }
+                return tareas;
+            }catch(Exception){
+                throw new Exception("Hubo un problema al devolver la lista de tareas del usuario pertenecientes al tablero.");
+            }
+        }
+
+        public List<Tarea> GetTareasNoAssignedByTablero(int IdTablero)
+        {
+            try
+            {
+                var query = @"SELECT * FROM Tarea WHERE id_usuario_asignado IS NULL AND id_tablero = @idTablero";
+                List<Tarea> tareas = new List<Tarea>();
+
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@idTablero", IdTablero));
+
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var tarea = new Tarea();
+                            tarea.Id = Convert.ToInt32(reader["id_tarea"]);
+                            tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.Nombre = reader["nombre_tarea"].ToString();
+                            tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado_tarea"]);
+                            tarea.Desc = reader["descripcion_tarea"].ToString();
+                            tarea.Color = reader["color_tarea"].ToString();
+                            tarea.IdUsuarioAsignado = (reader.IsDBNull(reader.GetOrdinal("id_usuario_asignado"))) ? null : Convert.ToInt32(reader["id_usuario_asignado"]);
+                            tareas.Add(tarea);
+                        }
+                    }
+                    connection.Close();
+                }
+                return tareas;
+            }catch(Exception){
+                throw new Exception("Hubo un problema al devolver la lista de tareas del usuario pertenecientes al tablero.");
+            }
+        }
+
         public Tarea GetById(int id)
         {
             try

@@ -7,6 +7,7 @@ namespace tl2_tp10_2023_0ignacio.ViewModels;
 public class GetAllTareasViewModel
 {
     List<TareaViewModel> tareasVM;
+    
     public List<TareaViewModel> TareasVM { get => tareasVM; set => tareasVM = value; }
 
     public GetAllTareasViewModel()
@@ -15,12 +16,13 @@ public class GetAllTareasViewModel
 
     public GetAllTareasViewModel(List<Tarea> tareas)
     {
-        tareasVM = new List<TareaViewModel>();
+        this.tareasVM = new List<TareaViewModel>();
+        
         
         foreach (var t in tareas)
         {
             TareaViewModel tarea = new TareaViewModel(t);
-            tareasVM.Add(tarea);
+            this.tareasVM.Add(tarea);
         }
     }
 }

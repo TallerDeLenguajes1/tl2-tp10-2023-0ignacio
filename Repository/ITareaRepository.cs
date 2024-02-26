@@ -12,6 +12,9 @@ namespace tl2_tp10_2023_0ignacio.Repositories
         public void Update(int id, Tarea tarea);
         public List<Tarea> GetAll();
         public List<Tarea> GetTareasByUsuario(int Id);
+        public List<Tarea> GetTareasByTablero(int Id);
+        public List<Tarea> GetTareasUsuarioByTablero(int IdUsuario, int IdTablero);
+        public List<Tarea> GetTareasNoAssignedByTablero( int IdTablero);
         public Tarea GetById(int id);
         public void Delete(int id);
     }
