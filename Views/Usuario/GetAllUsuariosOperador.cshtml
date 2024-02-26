@@ -2,21 +2,8 @@
 
 @model UsuarioViewModel
 
-<h2>Lista de usuarios</h2>
-
-<table class="table table-dark">
-    <thead>
-        <tr>
-            <th scope = "col">ID</th>
-            <th scope = "col">Nombre</th>
-            <th scope = "col">Rol</th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr>
-                <th scope = "row">@Model.Id</th>
-                <td>@Model.NombreDeUsuario</td>
-                <td>@Model.Rol</td>
-            </tr>
-    </tbody>
-</table>
+<h2>Usuario</h2>
+<div>
+        <p><strong>Nombre:</strong> @Model.NombreDeUsuario</p>
+        <p><strong>Rol:</strong> @Model.Rol</p>
+</div>

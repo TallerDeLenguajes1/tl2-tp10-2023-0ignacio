@@ -45,11 +45,39 @@ public class LoginController: Controller
         }
     }
 
-    private void loggearUsuario(Usuario usuario){
-        HttpContext.Session.SetString("NombreDeUsuario", usuario.NombreDeUsuario);
-        HttpContext.Session.SetString("Rol", usuario.Rol.ToString());
-        HttpContext.Session.SetString("Id", usuario.Id.ToString());
+    private void loggearUsuario(Usuario usuario)
+    {
+        try
+        {
+            HttpContext.Session.SetString("NombreDeUsuario", usuario.NombreDeUsuario);
+            HttpContext.Session.SetString("Rol", usuario.Rol.ToString());
+            HttpContext.Session.SetString("Id", usuario.Id.ToString());
+            _logger.LogInformation($"El usuario {usuario.NombreDeUsuario} se ha logueado en la sesion con ID: {usuario.Id} y rol: {usuario.Rol}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al iniciar sesion");
+            throw;
+        }
     }
+
+    [HttpGet]
+        public IActionResult Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                TempData["Mensaje"] = "Sesion finalizada";
+                _logger.LogInformation("La sesión se cerró exitosamente para el usuario.");
+                return RedirectToRoute(new { controller = "Login", action = "Index"});
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ocurrió un error al cerrar sesión.";
+                _logger.LogError(ex, "Error al cerrar sesión del usuario");
+                return RedirectToRoute(new { controller = "Login", action = "Index"});
+            }
+        }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

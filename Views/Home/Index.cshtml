@@ -1,15 +1,26 @@
-﻿@{
+﻿@using tl2_tp10_2023_0ignacio.Models
+@{
     ViewData["Title"] = "Taller de Lenguajes II - 2023";
 }
 
 <div class="text-center">
     <h1 class="display-4">Proyecto Canvas</h1>
     <div>
-        <a asp-controller="Usuario" asp-action="Index">Usuarios</a>
+        @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+        {
+            <a asp-controller="Usuario" asp-action="Index">Usuarios</a>
+        }else{
+            <a asp-controller="Usuario" asp-action="Index">Ver Usuario</a>
+        }
         <br />
         <a asp-controller="Tablero" asp-action="Index">Tableros</a>
         <br />
-        <a asp-controller="Tarea" asp-action="Index">Tareas</a>
+        @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+        {
+            <a asp-controller="Tarea" asp-action="Index">Ver Tareas</a>
+        }else{
+            <a asp-controller="Tarea" asp-action="Index">Ver mis Tareas</a>
+        }
     </div>
 </div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }
