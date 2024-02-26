@@ -10,11 +10,13 @@ public class TableroController : Controller
 {
     private readonly ILogger<TableroController> _logger;
     private ITableroRepository _tableroRepository;
+    private IUsuarioRepository _usuarioRepository;
 
-    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository)
+    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
         _tableroRepository = tableroRepository;
+        _usuarioRepository = usuarioRepository;
     }
 
     public IActionResult Index()
@@ -65,7 +67,7 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                return View("NewTablero", new TableroViewModel());
+                return View("NewTablero", new NewTableroViewModel(new TableroRestriccionesViewModel(), _usuarioRepository.GetAll()));
             } else
             {
                 return View("NewTableroOperador", new TableroViewModel());
@@ -78,13 +80,13 @@ public class TableroController : Controller
     }
 
     [HttpPost]
-    public IActionResult NewTablero(TableroViewModel tableroVM)
+    public IActionResult NewTablero(NewTableroViewModel tableroVM)
     {
         try
         {
             if(ModelState.IsValid)
             {
-                Tablero tablero = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
+                Tablero tablero = new Tablero(tableroVM.Tablero.IdUsuarioPropietario, tableroVM.Tablero.Nombre, tableroVM.Tablero.Desc);
                 _tableroRepository.Create(tablero);
                 return RedirectToAction("Index");
             }

@@ -1,22 +1,23 @@
-@model TableroViewModel
+@using tl2_tp10_2023_0ignacio.ViewModels
+@model NewTableroViewModel
 
 <form asp-controller="Tablero" asp-action="NewTablero" method="post">
-    <input type="hidden" asp-for="@Model.Id" />
     <div>
-        <label asp-for="@Model.Nombre">Nombre:</label>
-        <input asp-for="@Model.Nombre" />
+        <label asp-for="@Model.Tablero.Nombre">Nombre:</label>
+        <input asp-for="@Model.Tablero.Nombre" />
     </div>
     <div>
-        <label asp-for="@Model.Desc">Descripción:</label>
-        <textarea asp-for="@Model.Desc"></textarea>
+        <label asp-for="@Model.Tablero.Desc">Descripción:</label>
+        <textarea asp-for="@Model.Tablero.Desc"></textarea>
     </div>
     <div>
-        <label asp-for="@Model.IdUsuarioPropietario">Id usuario propietario:</label>
-        <input asp-for="@Model.IdUsuarioPropietario" />
+        <label asp-for="@Model.Tablero.IdUsuarioPropietario">Usuario propietario:</label>
+        <select asp-for="@Model.Tablero.IdUsuarioPropietario" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+            <option value="">Seleccione un usuario</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-success"
         onclick="return confirm('¿Estás seguro de crear el tablero?')">Agregar</button>
-
 </form>
 
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

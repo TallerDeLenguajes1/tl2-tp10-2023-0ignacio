@@ -11,12 +11,14 @@ public class TareaController : Controller
     private readonly ILogger<TareaController> _logger;
     private ITareaRepository _tareaRepository;
     private ITableroRepository _tableroRepository;
+    private IUsuarioRepository _usuarioRepository;
 
-    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, ITableroRepository tableroRepository)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, ITableroRepository tableroRepository, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
         _tareaRepository = tareaRepository;
         _tableroRepository = tableroRepository;
+        _usuarioRepository = usuarioRepository;
     }
 
     public IActionResult Index()
@@ -65,13 +67,15 @@ public class TareaController : Controller
     {
         try
         {
+            NewTareaViewModel nuevaTarea;
             if(isAdmin())
             {
-                return View("NewTarea", new TareaViewModel());
+                nuevaTarea = new NewTareaViewModel(new TareaRestriccionesViewModel(), _tableroRepository.GetAll(), _usuarioRepository.GetAll());
             }else{
-                return View("NewTareaOperador", new TareaOperadorViewModel(new Tarea(),_tableroRepository.GetTablerosByUsuario(int.Parse(HttpContext.Session.GetString("Id")))));
+                nuevaTarea = new NewTareaViewModel(new TareaRestriccionesViewModel(), _tableroRepository.GetTablerosByUsuario(int.Parse(HttpContext.Session.GetString("Id"))), _usuarioRepository.GetAll());
                 // return RedirectToRoute(new {controller = "Home", action = "Index"});
             }
+            return View("NewTarea", nuevaTarea);
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
@@ -79,13 +83,13 @@ public class TareaController : Controller
     }
 
     [HttpPost]
-    public IActionResult NewTarea(TareaViewModel tareaVM)
+    public IActionResult NewTarea(NewTareaViewModel tareaVM)
     {
         try
         {
             if(ModelState.IsValid)
             {
-                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                Tarea tarea = new Tarea(tareaVM.Tarea.IdTablero, tareaVM.Tarea.IdUsuarioAsignado, tareaVM.Tarea.Nombre, tareaVM.Tarea.Estado, tareaVM.Tarea.Desc, tareaVM.Tarea.Color);
                 _tareaRepository.Create(tarea);
                 return RedirectToAction("Index");
             }
@@ -96,23 +100,7 @@ public class TareaController : Controller
         }
     }
 
-    [HttpPost]
-    public IActionResult NewTareaOperador(NewTareaOperadorViewModel tareaOVM)
-    {
-        try
-        {
-            if(ModelState.IsValid)
-            {
-                Tarea tarea = new Tarea(tareaOVM.Tarea.IdTablero, tareaOVM.Tarea.IdUsuarioAsignado, tareaOVM.Tarea.Nombre, tareaOVM.Tarea.Estado, tareaOVM.Tarea.Desc, tareaOVM.Tarea.Color);
-                _tareaRepository.Create(tarea);
-                return RedirectToAction("Index");
-            }
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
-        }catch(Exception ex){
-            _logger.LogError(ex.ToString());
-            return RedirectToRoute("Error"); 
-        }
-    }
+    
 
     [HttpGet]
     public IActionResult UpdateTarea(int Id)
