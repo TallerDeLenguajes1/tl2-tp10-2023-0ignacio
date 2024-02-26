@@ -70,9 +70,9 @@ public class TareaController : Controller
             NewTareaViewModel nuevaTarea;
             if(isAdmin())
             {
-                nuevaTarea = new NewTareaViewModel(new TareaRestriccionesViewModel(), _tableroRepository.GetAll(), _usuarioRepository.GetAll());
+                nuevaTarea = new NewTareaViewModel(new TareaViewModel(), _tableroRepository.GetAll(), _usuarioRepository.GetAll());
             }else{
-                nuevaTarea = new NewTareaViewModel(new TareaRestriccionesViewModel(), _tableroRepository.GetTablerosByUsuario(int.Parse(HttpContext.Session.GetString("Id"))), _usuarioRepository.GetAll());
+                nuevaTarea = new NewTareaViewModel(new TareaViewModel(), _tableroRepository.GetTablerosByUsuario(int.Parse(HttpContext.Session.GetString("Id"))), _usuarioRepository.GetAll());
                 // return RedirectToRoute(new {controller = "Home", action = "Index"});
             }
             return View("NewTarea", nuevaTarea);
@@ -89,7 +89,7 @@ public class TareaController : Controller
         {
             if(ModelState.IsValid)
             {
-                Tarea tarea = new Tarea(tareaVM.Tarea.IdTablero, tareaVM.Tarea.IdUsuarioAsignado, tareaVM.Tarea.Nombre, tareaVM.Tarea.Estado, tareaVM.Tarea.Desc, tareaVM.Tarea.Color);
+                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
                 _tareaRepository.Create(tarea);
                 return RedirectToAction("Index");
             }

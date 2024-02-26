@@ -67,7 +67,7 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                return View("NewTablero", new NewTableroViewModel(new TableroRestriccionesViewModel(), _usuarioRepository.GetAll()));
+                return View("NewTablero", new NewTableroViewModel(new TableroViewModel(), _usuarioRepository.GetAll()));
             } else
             {
                 return View("NewTableroOperador", new TableroViewModel());
@@ -86,7 +86,7 @@ public class TableroController : Controller
         {
             if(ModelState.IsValid)
             {
-                Tablero tablero = new Tablero(tableroVM.Tablero.IdUsuarioPropietario, tableroVM.Tablero.Nombre, tableroVM.Tablero.Desc);
+                Tablero tablero = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
                 _tableroRepository.Create(tablero);
                 return RedirectToAction("Index");
             }

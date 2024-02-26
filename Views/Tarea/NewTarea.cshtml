@@ -3,32 +3,32 @@
 
 <form asp-controller="Tarea" asp-action="NewTarea" method="post">
     <div>
-        <label asp-for="@Model.Tarea.Nombre">Nombre:</label>
-        <input asp-for="@Model.Tarea.Nombre" />
+        <label asp-for="@Model.Nombre">Nombre:</label>
+        <input asp-for="@Model.Nombre" />
     </div>
     <div>
-        <label asp-for="@Model.Tarea.Desc">Descripción:</label>
-        <textarea asp-for="@Model.Tarea.Desc"></textarea>
+        <label asp-for="@Model.Desc">Descripción:</label>
+        <textarea asp-for="@Model.Desc"></textarea>
     </div>
     <div>
-        <label asp-for="@Model.Tarea.Estado">Estado:</label>
-        <select asp-for="@Model.Tarea.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()">
+        <label asp-for="@Model.Estado">Estado:</label>
+        <select asp-for="@Model.Estado" asp-items="@Html.GetEnumSelectList<EstadoTarea>()">
             <option value="">Seleccione un estado</option>
         </select>
     </div>
     <div>
-        <label asp-for="@Model.Tarea.Color">Color:</label>
-        <input asp-for="@Model.Tarea.Color" type="color" />
+        <label asp-for="@Model.Color">Color:</label>
+        <input asp-for="@Model.Color" type="color" />
     </div>
     <div>
-        <label asp-for="@Model.Tarea.IdTablero">Tablero:</label>
-        <select asp-for="@Model.Tarea.IdTablero" asp-items="@(new SelectList(Model.TablerosPropios, "Id", "Nombre"))">
+        <label asp-for="@Model.IdTablero">Tablero:</label>
+        <select asp-for="@Model.IdTablero" asp-items="@(new SelectList(Model.TablerosPropios, "Id", "Nombre"))">
             <option value="">Seleccione un tablero</option>
         </select>
     </div>
     <div>
-        <label asp-for="@Model.Tarea.IdUsuarioAsignado">Asignar usuario:</label>
-        <select asp-for="@Model.Tarea.IdUsuarioAsignado" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+        <label asp-for="@Model.IdUsuarioAsignado">Asignar usuario:</label>
+        <select asp-for="@Model.IdUsuarioAsignado" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
             <option value="">Seleccione un usuario</option>
         </select>
     </div>

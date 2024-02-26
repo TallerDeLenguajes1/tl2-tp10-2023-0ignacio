@@ -3,16 +3,16 @@
 
 <form asp-controller="Tablero" asp-action="NewTablero" method="post">
     <div>
-        <label asp-for="@Model.Tablero.Nombre">Nombre:</label>
-        <input asp-for="@Model.Tablero.Nombre" />
+        <label asp-for="@Model.Nombre">Nombre:</label>
+        <input asp-for="@Model.Nombre" />
     </div>
     <div>
-        <label asp-for="@Model.Tablero.Desc">Descripción:</label>
-        <textarea asp-for="@Model.Tablero.Desc"></textarea>
+        <label asp-for="@Model.Desc">Descripción:</label>
+        <textarea asp-for="@Model.Desc"></textarea>
     </div>
     <div>
-        <label asp-for="@Model.Tablero.IdUsuarioPropietario">Usuario propietario:</label>
-        <select asp-for="@Model.Tablero.IdUsuarioPropietario" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
+        <label asp-for="@Model.IdUsuarioPropietario">Usuario propietario:</label>
+        <select asp-for="@Model.IdUsuarioPropietario" asp-items="@(new SelectList(Model.Usuarios, "Id", "NombreDeUsuario"))">
             <option value="">Seleccione un usuario</option>
         </select>
     </div>
