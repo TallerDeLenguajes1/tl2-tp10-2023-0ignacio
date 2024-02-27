@@ -1,5 +1,5 @@
 @using tl2_tp10_2023_0ignacio.ViewModels
-@model GetAllTablerosViewModel
+@model GetAllTablerosAdminViewModel
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -12,7 +12,7 @@
             <h2>Lista de Tableros</h2>
         </div>
 
-            @if(Model.TablerosPropios.Count <= 0){
+            @if(Model.Tableros.Count <= 0){
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <h2>No existen tableros</h2>
                 </div>
@@ -25,24 +25,26 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">IdUsuarioPropietario</th>
+                                <th scope="col">Id Usuario Propietario</th>
+                                <th scope="col">Nombre Usuario Propietario</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var tablero in Model.TablerosPropios)
+                            @foreach (var tablero in Model.Tableros)
                             {
                                 <tr>
-                                    <td>@tablero.Id</td>
-                                    <td>@tablero.Nombre</td>
-                                    <td>@tablero.Desc</td>
+                                    <td>@tablero.IdTablero</td>
+                                    <td>@tablero.NombreTablero</td>
+                                    <td>@tablero.DescTablero</td>
                                     <td>@tablero.IdUsuarioPropietario</td>
+                                    <td>@tablero.NombreDeUsuarioPropietario</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="UpdateTablero" asp-route-id="@tablero.Id">Editar</a>
+                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="UpdateTablero" asp-route-id="@tablero.IdTablero">Editar</a>
                                         </div>
                                         <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="DeleteTablero" asp-route-id="@tablero.Id">Eliminar</a>
+                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="DeleteTablero" asp-route-id="@tablero.IdTablero">Eliminar</a>
                                         </div>
                                     </td>
                                 </tr>

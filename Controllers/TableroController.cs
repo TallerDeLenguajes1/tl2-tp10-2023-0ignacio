@@ -27,7 +27,7 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetAll(), new List<Tablero>());
+                GetAllTablerosAdminViewModel tableros = new GetAllTablerosAdminViewModel(_tableroRepository.GetAllTablerosUsurios());
                 if(tableros != null)
                 {
                     return View(tableros);

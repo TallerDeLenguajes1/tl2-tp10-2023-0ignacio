@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using tl2_tp10_2023_0ignacio.Models;
+using tl2_tp10_2023_0ignacio.ViewModels;
 
 namespace tl2_tp10_2023_0ignacio.Repositories
 {
@@ -80,6 +81,39 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                             tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
                             tablero.Nombre = reader["nombre_tablero"].ToString();
                             tablero.Desc = reader["descripcion_tablero"].ToString();
+                            tableros.Add(tablero);
+                        }
+                    }
+                    connection.Close();
+                }
+                return tableros;
+            }catch(Exception){
+                throw new Exception("Hubo un problema al devolver la lista de tableros.");
+            }
+        }
+
+        public List<TableroUsuarioViewModel> GetAllTablerosUsurios()
+        {
+            try
+            {
+                var query = @"SELECT * FROM Tablero INNER JOIN Usuario ON(Tablero.id_usuario_propietario = Usuario.id_usuario)";
+                List<TableroUsuarioViewModel> tableros = new List<TableroUsuarioViewModel>();
+
+                using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    connection.Open();
+
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var tablero = new TableroUsuarioViewModel();
+                            tablero.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                            tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                            tablero.NombreTablero = reader["nombre_tablero"].ToString();
+                            tablero.NombreDeUsuarioPropietario = reader["nombre_de_usuario"].ToString();
+                            tablero.DescTablero = reader["descripcion_tablero"].ToString();
                             tableros.Add(tablero);
                         }
                     }
