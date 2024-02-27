@@ -16,7 +16,7 @@ public class NewUsuarioViewModel
     public string NombreDeUsuario { get => nombreDeUsuario; set => nombreDeUsuario = value; }
     
     [Required(ErrorMessage = "Complete el campo")]
-    [StringLength(16, ErrorMessage = "La contraseña debe tener entre 8 y 16 caracteres"), MinLength(8)]
+    [StringLength(16, ErrorMessage = "La contraseña debe tener entre 4 y 16 caracteres"), MinLength(4)]
     [Display(Name = "Contraseña")]
     [PasswordPropertyText]
     public string Pass { get => pass; set => pass = value; }

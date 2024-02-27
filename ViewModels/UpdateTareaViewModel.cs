@@ -15,8 +15,6 @@ public class UpdateTareaViewModel
     private int? idUsuarioAsignado;
     private List<Usuario> usuarios;
 
-    [Required(ErrorMessage = "Este campo no puede estar vacio")]
-    [Display(Name = "Id")]
     public int Id { get => id; set => id = value; }
 
     [Required(ErrorMessage = "Este campo no puede estar vacio")]
@@ -32,7 +30,6 @@ public class UpdateTareaViewModel
     [Display(Name = "Estado Tarea")]
     public EstadoTarea Estado { get => estado; set => estado = value; }
 
-    [Required(ErrorMessage = "Este campo no puede estar vacio")]
     [MaxLength(50, ErrorMessage = "La descripcion debe tener hasta 50 caracteres")]
     [Display(Name = "Descripcion")]
     public string Desc { get => desc; set => desc = value; }
