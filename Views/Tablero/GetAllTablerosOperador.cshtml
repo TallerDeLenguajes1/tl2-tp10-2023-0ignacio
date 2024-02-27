@@ -35,13 +35,8 @@
                                     <td>@tablero.Nombre</td>
                                     <td>@tablero.Desc</td>
                                     <td>
-                                        <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="UpdateTablero" asp-route-id="@tablero.Id">Editar</a>
-                                        </div>
-                                        <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="DeleteTablero" asp-route-id="@tablero.Id">Eliminar</a>
-                                        </div>
-                                        <div class="btn-group" role="group" aria-label="Opciones">
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                            <a asp-controller="Tablero" class="btn btn-warning" asp-action="UpdateTablero" asp-route-id="@tablero.Id">Editar</a>
                                             <a asp-controller="Tarea" class="btn btn-info" asp-action="GetTareasOperadorByTablero" asp-route-idTablero="@tablero.Id" asp-route-esPropietario="true">Mostrar Tareas</a>
                                         </div>
                                     </td>
@@ -86,7 +81,7 @@
                                 <td>@tablero.Nombre</td>
                                 <td>@tablero.Desc</td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Opciones">
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                         <a asp-controller="Tarea" class="btn btn-info" asp-action="GetTareasOperadorByTablero" asp-route-idTablero="@tablero.Id" asp-route-esPropietario="false">Mostrar Tareas</a>
                                     </div>
                                 </td>

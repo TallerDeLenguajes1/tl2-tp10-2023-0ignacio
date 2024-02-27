@@ -2,18 +2,15 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div>
-            <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h2>Opciones de Usuarios</h2>
+<div class="text-center">
+    <h2>Opciones de Usuarios</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="list-group">
+                    <a asp-controller="Usuario" class="btn btn-primary btn-lg" asp-action="GetAllUsuarios">Listar y gestrionar usuarios</a>
+                    <br/>
+                    <a asp-controller="Usuario" class="btn btn-primary btn-lg" asp-action="NewUsuario">Crear Usuario</a>
+                </div>
             </div>
-    
-            <ol>
-                <li><div><a asp-controller="Usuario" class="btn btn-success" asp-action="GetAllUsuarios">Listar y gestrionar usuarios</a></div></li>
-                <li><div><a asp-controller="Usuario" class="btn btn-success" asp-action="NewUsuario">Crear Usuario</a></div></li>
-            </ol>
-
         </div>
-    </div>
 </div>

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div>
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <a asp-controller="Tablero" asp-action="NewTablero">Agregar Tableros</a>
+                <a asp-controller="Tablero" class="btn btn-success" asp-action="NewTablero">Agregar Tableros</a>
             </div>
         </div>
         <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -40,11 +40,9 @@
                                     <td>@tablero.IdUsuarioPropietario</td>
                                     <td>@tablero.NombreDeUsuarioPropietario</td>
                                     <td>
-                                        <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="UpdateTablero" asp-route-id="@tablero.IdTablero">Editar</a>
-                                        </div>
-                                        <div class="btn-group" role="group" aria-label="Opciones">
-                                            <a asp-controller="Tablero" class="btn btn-info" asp-action="DeleteTablero" asp-route-id="@tablero.IdTablero">Eliminar</a>
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                            <a asp-controller="Tablero" class="btn btn-warning" asp-action="UpdateTablero" asp-route-id="@tablero.IdTablero">Editar</a>
+                                            <a asp-controller="Tablero" class="btn btn-danger" asp-action="DeleteTablero" asp-route-id="@tablero.IdTablero">Eliminar</a>
                                         </div>
                                     </td>
                                 </tr>

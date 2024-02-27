@@ -141,8 +141,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
 
         public Usuario ValidateUsuario(Usuario usuario)
         {
-            try
-            {
+            
                 var query = @"SELECT * FROM Usuario WHERE nombre_de_usuario = @nombreDeUsuario AND pass_usuario = @passUsuario";
                 using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion)){
                     connection.Open();
@@ -166,9 +165,7 @@ namespace tl2_tp10_2023_0ignacio.Repositories
                     
                     return usuarioAux;
                 }
-            }catch(Exception){
-                throw new Exception("Hubo un problema al validar el usuario.");
-            }
+            
         }
     }
 }

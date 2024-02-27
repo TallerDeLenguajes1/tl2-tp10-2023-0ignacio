@@ -141,11 +141,14 @@ public class UsuarioController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
+            if(isAdmin())
             {
-                Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-                _usuarioRepository.Update(usuarioVM.Id, usuario);
-                return RedirectToAction("GetAllUsuarios");
+                if (ModelState.IsValid)
+                {
+                    Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
+                    _usuarioRepository.Update(usuarioVM.Id, usuario);
+                    return RedirectToAction("GetAllUsuarios");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
@@ -178,19 +181,22 @@ public class UsuarioController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if(isAdmin())
             {
-                _tareaRepository.SetNullUsuarioAsignado(usuario.Id);
-
-                List<Tablero> tablerosAEliminar = _tableroRepository.GetTablerosByUsuario(usuario.Id);
-                foreach (var t in tablerosAEliminar)
+                if(ModelState.IsValid)
                 {
-                    _tareaRepository.DeleteByTablero(t.Id);
+                    _tareaRepository.SetNullUsuarioAsignado(usuario.Id);
+
+                    List<Tablero> tablerosAEliminar = _tableroRepository.GetTablerosByUsuario(usuario.Id);
+                    foreach (var t in tablerosAEliminar)
+                    {
+                        _tareaRepository.DeleteByTablero(t.Id);
+                    }
+                    
+                    _tableroRepository.DeleteByUsuario(usuario.Id);
+                    _usuarioRepository.Delete(usuario.Id);
+                    return RedirectToAction("GetAllUsuarios");
                 }
-                
-                _tableroRepository.DeleteByUsuario(usuario.Id);
-                _usuarioRepository.Delete(usuario.Id);
-                return RedirectToAction("GetAllUsuarios");
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){

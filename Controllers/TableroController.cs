@@ -48,7 +48,7 @@ public class TableroController : Controller
     {
         try
         {
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            if (HttpContext.Session.GetString("Rol") != null)
             {
                 GetAllTablerosViewModel tableros = new GetAllTablerosViewModel(_tableroRepository.GetTablerosByUsuario(Int32.Parse(HttpContext.Session.GetString("Id"))), _tableroRepository.GetTablerosByAssignedTasks(int.Parse(HttpContext.Session.GetString("Id"))));
                 return View("GetAllTablerosOperador",tableros);
@@ -86,11 +86,14 @@ public class TableroController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if(isAdmin())
             {
-                Tablero tablero = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
-                _tableroRepository.Create(tablero);
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    Tablero tablero = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
+                    _tableroRepository.Create(tablero);
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
@@ -104,13 +107,18 @@ public class TableroController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if (HttpContext.Session.GetString("Rol") != null)
             {
-                Tablero tablero = new Tablero(int.Parse(HttpContext.Session.GetString("Id")), tableroVM.Nombre, tableroVM.Desc);
-                _tableroRepository.Create(tablero);
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    Tablero tablero = new Tablero(int.Parse(HttpContext.Session.GetString("Id")), tableroVM.Nombre, tableroVM.Desc);
+                    _tableroRepository.Create(tablero);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }else{
+                return RedirectToRoute(new {controller = "Login", action = "Index"});
             }
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
@@ -142,11 +150,14 @@ public class TableroController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
-            {
-                Tablero tableroModificado = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
-                _tableroRepository.Update(tableroVM.Id, tableroModificado);
-                return RedirectToAction("Index");
+            if(isAdmin())
+            {   
+                if (ModelState.IsValid)
+                {
+                    Tablero tableroModificado = new Tablero(tableroVM.IdUsuarioPropietario, tableroVM.Nombre, tableroVM.Desc);
+                    _tableroRepository.Update(tableroVM.Id, tableroModificado);
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
@@ -179,11 +190,14 @@ public class TableroController : Controller
     {
         try
         {
-            if (ModelState.IsValid)
+            if(isAdmin())
             {
-                _tareaRepository.DeleteByTablero(tablero.Id);
-                _tableroRepository.Delete(tablero.Id);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _tareaRepository.DeleteByTablero(tablero.Id);
+                    _tableroRepository.Delete(tablero.Id);
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){

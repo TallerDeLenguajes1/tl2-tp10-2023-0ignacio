@@ -112,11 +112,14 @@ public class TareaController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if (HttpContext.Session.GetString("Rol") != null)
             {
-                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-                _tareaRepository.Create(tarea);
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                    _tareaRepository.Create(tarea);
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
@@ -125,7 +128,6 @@ public class TareaController : Controller
         }
     }
 
-    
 
     [HttpGet]
     public IActionResult UpdateTarea(int Id, string esPropietario)
@@ -155,7 +157,7 @@ public class TareaController : Controller
     {
         try
         {
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            if (HttpContext.Session.GetString("Rol") != null)
             {
                 return View(new UpdateEstadoTareaViewModel(_tareaRepository.GetById(Id)));
                 
@@ -173,13 +175,18 @@ public class TareaController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if (HttpContext.Session.GetString("Rol") != null)
             {
-                Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
-                _tareaRepository.Update(tareaVM.Id, tarea);
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    Tarea tarea = new Tarea(tareaVM.IdTablero, tareaVM.IdUsuarioAsignado, tareaVM.Nombre, tareaVM.Estado, tareaVM.Desc, tareaVM.Color);
+                    _tareaRepository.Update(tareaVM.Id, tarea);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
+            }else{
+                return RedirectToRoute(new {controller = "Login", action = "Index"});
             }
-            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
@@ -209,10 +216,13 @@ public class TareaController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if(isAdmin())
             {
-                _tareaRepository.Delete(tarea.Id);
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    _tareaRepository.Delete(tarea.Id);
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){

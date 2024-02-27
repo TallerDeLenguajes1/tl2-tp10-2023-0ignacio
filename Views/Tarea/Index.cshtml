@@ -43,20 +43,26 @@
                                 @if (tarea.IdUsuarioAsignado != null)
                                 {
                                     <span>@tarea.IdUsuarioAsignado</span>
+                                }
+                                else
+                                {
+                                    <span>No Asignado</span>
+                                }
+                            </td>
+                            <td>
+                                @if (tarea.IdUsuarioAsignado != null)
+                                {
                                     <span>@tarea.NombreUsuarioAsignado</span>
                                 }
                                 else
                                 {
                                     <span>No Asignado</span>
-                                    <span>No Asignado</span>
                                 }
                             </td>
                             <td>
-                                <div class="btn-group" role="group" aria-label="Opciones">
-                                    <a asp-controller="Tarea" class="btn btn-info"  asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
-                                </div>
-                                <div class="btn-group" role="group" aria-label="Opciones">
-                                    <a asp-controller="Tarea" class="btn btn-info"  asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <a asp-controller="Tarea" class="btn btn-warning"  asp-action="UpdateTarea" asp-route-id="@tarea.Id">Editar</a>
+                                    <a asp-controller="Tarea" class="btn btn-danger"  asp-action="DeleteTarea" asp-route-id="@tarea.Id">Eliminar</a>
                                 </div>
                             </td>
                         </tr>

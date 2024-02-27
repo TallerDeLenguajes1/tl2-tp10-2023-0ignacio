@@ -5,28 +5,28 @@
 
 <div class="text-center">
     <h1 class="display-4">Proyecto Canvas</h1>
-    <div>
-        <div class="btn-group" role="group" aria-label="Opciones">
-            @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
-            {
-                <a asp-controller="Usuario" class="btn btn-info" asp-action="Index">Usuarios</a>
-            }else{
-                <a asp-controller="Usuario" class="btn btn-info" asp-action="Index">Ver Usuario</a>
-            }
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="list-group">
+                    @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+                    {
+                        <a asp-controller="Usuario" class="btn btn-primary btn-lg" asp-action="Index">Usuarios</a>
+                        
+                    }else{
+                        <a asp-controller="Usuario" class="btn btn-primary btn-lg" asp-action="Index">Ver Usuario</a>
+                    }
+                <br />
+                    <a asp-controller="Tablero" class="btn btn-primary btn-lg" asp-action="Index">Tableros</a>
+                <br />
+                
+                    @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
+                    {
+                        <a asp-controller="Tarea" class="btn btn-primary btn-lg" asp-action="Index">Ver Tareas</a>
+                    }else{
+                        <a asp-controller="Tarea" class="btn btn-primary btn-lg" asp-action="Index">Ver mis Tareas</a>
+                    }
+                </div>
+            </div>
         </div>
-        <br />
-        <div class="btn-group" role="group" aria-label="Opciones">
-            <a asp-controller="Tablero" class="btn btn-info" asp-action="Index">Tableros</a>
-        </div>
-        <br />
-        <div class="btn-group" role="group" aria-label="Opciones">
-            @if (Context.Session.GetString("Rol") == (Roles.Administrador).ToString())
-            {
-                <a asp-controller="Tarea" class="btn btn-info" asp-action="Index">Ver Tareas</a>
-            }else{
-                <a asp-controller="Tarea" class="btn btn-info" asp-action="Index">Ver mis Tareas</a>
-            }
-        </div>
-    </div>
 </div>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }
