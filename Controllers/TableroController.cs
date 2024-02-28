@@ -133,8 +133,13 @@ public class TableroController : Controller
         {
             if (isAdmin())
             {
-                return View(new UpdateTableroViewModel(_tableroRepository.GetById(Id), _usuarioRepository.GetAll()));
-                
+                Tablero tablero = _tableroRepository.GetById(Id);
+                if(tablero == null)
+                {
+                    return RedirectToRoute(new {controller = "Home", action = "Index"});
+                }else{
+                    return View(new UpdateTableroViewModel(tablero, _usuarioRepository.GetAll()));
+                }
             } else
             {
                 return RedirectToRoute(new {controller = "Home", action = "Index"});
@@ -174,7 +179,12 @@ public class TableroController : Controller
             if (isAdmin())
             {
                 Tablero tablero = _tableroRepository.GetById(Id);
-                return View(tablero);
+                if (tablero == null)
+                {
+                    return RedirectToRoute(new {controller = "Home", action = "Index"});
+                }else{
+                    return View(tablero);
+                }
             } else
             {
                 return RedirectToRoute(new {controller = "Home", action = "Index"});

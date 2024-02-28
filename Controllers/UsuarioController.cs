@@ -27,7 +27,7 @@ public class UsuarioController : Controller
         {
             return View();
         }else{
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            if (HttpContext.Session.GetString("Rol") != null)
             {
                 return RedirectToAction("GetAllUsuariosOperador");
             } else
@@ -62,14 +62,13 @@ public class UsuarioController : Controller
     }
 
     [HttpGet] 
-    public IActionResult GetAllUsuariosOperador()
+    public IActionResult GetUsuarioOperador()
     {
         try
         {
-            UsuarioViewModel usuario = new UsuarioViewModel(_usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id")!)));
-
-            if(HttpContext.Session.GetString("Rol") == "Operador")
+            if(HttpContext.Session.GetString("Rol") != null)
             {
+                UsuarioViewModel usuario = new UsuarioViewModel(_usuarioRepository.GetById(Int32.Parse(HttpContext.Session.GetString("Id"))));
                 return View(usuario);
             } else
             {
@@ -104,11 +103,14 @@ public class UsuarioController : Controller
     {
         try
         {
-            if(ModelState.IsValid)
+            if (isAdmin())
             {
-                Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
-                _usuarioRepository.Create(usuario);
-                return RedirectToAction("GetAllUsuarios");
+                if(ModelState.IsValid)
+                {
+                    Usuario usuario = new Usuario(usuarioVM.NombreDeUsuario, usuarioVM.Pass, usuarioVM.Rol);
+                    _usuarioRepository.Create(usuario);
+                    return RedirectToAction("GetAllUsuarios");
+                }
             }
             return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
@@ -124,12 +126,13 @@ public class UsuarioController : Controller
         {
             if(isAdmin())
             {
-                UpdateUsuarioViewModel usuario = new UpdateUsuarioViewModel(_usuarioRepository.GetById(Id));
-                return View(usuario);
-            } else
-            {
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                Usuario usuarioAux = _usuarioRepository.GetById(Id);
+                if (usuarioAux != null)
+                {
+                    return View(new UpdateUsuarioViewModel(usuarioAux));
+                }
             }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
@@ -165,11 +168,12 @@ public class UsuarioController : Controller
             if(isAdmin())
             {
                 Usuario usuario = _usuarioRepository.GetById(Id);
-                return View(usuario);
-            } else
-            {
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                if (usuario != null)
+                {
+                    return View(usuario);
+                }
             }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 

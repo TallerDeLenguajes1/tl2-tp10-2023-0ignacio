@@ -48,7 +48,7 @@ public class TareaController : Controller
     {
         try
         {
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            if (HttpContext.Session.GetString("Rol") != null)
             {
                 GetAllTareasViewModel tareas = new GetAllTareasViewModel(_tareaRepository.GetTareasByUsuario(Int32.Parse(HttpContext.Session.GetString("Id"))));
                 return View("GetAllTareasOperador",tareas);
@@ -66,7 +66,7 @@ public class TareaController : Controller
     {
         try
         {
-            if (HttpContext.Session.GetString("Rol") == "Operador")
+            if (HttpContext.Session.GetString("Rol") != null)
             {
                 var propietario = bool.Parse(esPropietario);
                 if(propietario)
@@ -136,15 +136,23 @@ public class TareaController : Controller
         {
             if (isAdmin())
             {
-                return View(new UpdateTareaViewModel(_tareaRepository.GetById(Id), _usuarioRepository.GetAll()));
+                Tarea tarea = _tareaRepository.GetById(Id);
+                if (tarea != null)
+                {
+                    return View(new UpdateTareaViewModel(tarea, _usuarioRepository.GetAll()));
+                }
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
             }else{
                 var propietario = bool.Parse(esPropietario);
                 if (propietario)
                 {
-                    return View(new UpdateTareaViewModel(_tareaRepository.GetById(Id), _usuarioRepository.GetAll()));
-                }else{
-                    return RedirectToRoute(new {controller = "Home", action = "Index"});
+                    Tarea tarea = _tareaRepository.GetById(Id);
+                    if (tarea != null)
+                    {
+                        return View(new UpdateTareaViewModel(tarea, _usuarioRepository.GetAll()));
+                    }
                 }
+                return RedirectToRoute(new {controller = "Home", action = "Index"});
             }
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
@@ -159,11 +167,13 @@ public class TareaController : Controller
         {
             if (HttpContext.Session.GetString("Rol") != null)
             {
-                return View(new UpdateEstadoTareaViewModel(_tareaRepository.GetById(Id)));
-                
-            }else{
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                Tarea tarea = _tareaRepository.GetById(Id);
+                if (tarea != null)
+                {
+                    return View(new UpdateEstadoTareaViewModel());
+                }
             }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
@@ -200,11 +210,14 @@ public class TareaController : Controller
         {
             if (isAdmin())
             {
-                TareaViewModel tarea = new TareaViewModel(_tareaRepository.GetById(Id));
-                return View(tarea);
-            }else{
-                return RedirectToRoute(new {controller = "Home", action = "Index"});
+                Tarea tareaAux = _tareaRepository.GetById(Id);
+                if (tareaAux != null)
+                {
+                    TareaViewModel tarea = new TareaViewModel(tareaAux);
+                    return View(tarea);
+                }
             }
+            return RedirectToRoute(new {controller = "Home", action = "Index"});
         }catch(Exception ex){
             _logger.LogError(ex.ToString());
             return RedirectToRoute("Error"); 
